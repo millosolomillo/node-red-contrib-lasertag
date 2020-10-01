@@ -37,6 +37,9 @@ Features/functionalities draft:
   - Configuration of all the clients at the beginning of game at the same time.
   - Log in each player shots received for satistics. Also log corrupted IR packages (due to collisions?)
   - Friendly fire switch.
+  
+- Flows should be standard for any type of "player" (human, grenade, referee, medkit, etc.) so the programming is always the same.
+  In this way, type of "player" could be changed in configuration.
 
 -------------------------------
 
@@ -46,3 +49,7 @@ Extra ideas:
 - Ammo box (Heavy box with another RPi with a set amount of ammo for players to take).
 - Respawn and reload fixed columns.
 - Medkit.
+
+Biggest problem to overcome (at least for me):
+- LIRC for infrared commands, pain in the ass. I can send predefined characters.
+  I cannot or do not know how to stream data. So the solution I see is build my message and send the characters independently, the consequence is that I will have to build a checksum system to avoid corrupt data (could happen if 2 players shoot at the same time or from the sunlight?).
