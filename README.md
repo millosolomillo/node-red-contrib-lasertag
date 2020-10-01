@@ -21,10 +21,20 @@ Features/functionalities draft:
 
 
 - Weapons system:
+  - Damage of each weapon.
+  - Active weapon.
+  - Silencer? ("Picked up" in a clumn maybe and maybe only temporary or for a fixed amount of bullets).
+  - Magazine size before reload for each weapon.
+  - Max capacity of bullets for each weapon.
+  - Weapons blocked? Can be programmed in this flow or also in player.
+  - Automatic, semiautomatic.
+  - Rate of firing (rate in automatic and cooldown in semiautomatic).
+  
 
 
 
 - General for everybody:
+  - Configuration of all the clients at the beginning of game at the same time.
 
 -------------------------------
 
@@ -33,4 +43,3 @@ Extra ideas:
 - Borrow ammo from colleagues by BLE or IR.
 - Ammo box (Heavy box with another RPi with a set amount of ammo for players to take).
 - Respawn and reload fixed columns.
-- Configuration of all the clients at the beginning of game at the same time.
