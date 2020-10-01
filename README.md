@@ -25,3 +25,10 @@ Features/functionalities draft:
 
 
 - General for everybody:
+
+-------------------------------
+Extra ideas:
+- In the future maybe player and guns could be separated in different systems (guns and player would communicate maybe by BLE/Wifi and get locked when player dies).
+- Borrow ammo from colleagues by BLE or IR.
+- Ammo box (Heavy box with another RPi with a set amount of ammo for players to take).
+- Respawn and reload fixed columns.
