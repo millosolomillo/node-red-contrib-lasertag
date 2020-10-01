@@ -1,4 +1,4 @@
-# node-red-contrib-lasertag
+# Laser tag game with Raspberry Pi + Node-RED + LIRC
 Set of flows to create your own Raspberry Pi lasertag game using Node-RED.
 
 ![System Structure](/images/Lasertag_System_Structure.svg)
@@ -24,7 +24,7 @@ Features/functionalities draft:
   - Damage of each weapon.
   - Active weapon.
   - Type of weapon available for use or not.
-  - Silencer? ("Picked up" in a clumn maybe and maybe only temporary or for a fixed amount of bullets).
+  - Silencer? ("Picked up" in a column maybe and maybe only temporary or for a fixed amount of bullets).
   - Magazine size before reload for each weapon.
   - Max capacity of bullets for each weapon.
   - Weapons blocked? Can be programmed in this flow or also in player.
@@ -35,7 +35,7 @@ Features/functionalities draft:
 
 - General for everybody:
   - Configuration of all the clients at the beginning of game at the same time.
-  - Log in each player shots received for satistics.
+  - Log in each player shots received for satistics. Also log corrupted IR packages (due to collisions?)
   - Friendly fire switch.
 
 -------------------------------
