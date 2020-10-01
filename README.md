@@ -1,4 +1,6 @@
 # node-red-contrib-lasertag
 Set of flows to create your own Raspberry Pi lasertag game
 
-![GitHub Logo](/images/Lasertag_System_Structure.svg)
+![System Structure](/images/Lasertag_System_Structure.svg)
+
+![Player Flow](/images/player_flow.JPG)
