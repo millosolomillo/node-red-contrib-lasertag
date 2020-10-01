@@ -31,10 +31,10 @@ Features/functionalities draft:
   - Rate of firing (rate in automatic and cooldown in semiautomatic).
   
 
-
-
 - General for everybody:
   - Configuration of all the clients at the beginning of game at the same time.
+  - Log in each player shots received for satistics.
+  - Friendly fire switch.
 
 -------------------------------
 
