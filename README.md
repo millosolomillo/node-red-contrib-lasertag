@@ -1,4 +1,4 @@
-# Laser tag game with Raspberry Pi + Node-RED + LIRC
+# Laser tag game with Raspberry Pi + Node-RED + LIRC // WORK IN PROGRESS
 Set of flows to create your own Raspberry Pi lasertag game using Node-RED.
 
 **System structure:**
@@ -56,5 +56,5 @@ Extra ideas:
 - Medkit.
 
 Biggest problem to overcome (at least for me):
-- LIRC for infrared commands, pain in the ass. I can send predefined characters.
+- LIRC for infrared commands, pain in the ass. I can only send predefined characters.
   I cannot or do not know how to stream data. So the solution I see is build my message and send the characters independently, the consequence is that I will have to build a checksum system to avoid corrupt data (could happen if 2 players shoot at the same time or from the sunlight?).
