@@ -2,8 +2,8 @@
     {
         "id": "84ab6ad3.4c8a78",
         "type": "tab",
-        "label": "Player",
-        "disabled": false,
+        "label": "Player (old)",
+        "disabled": true,
         "info": ""
     },
     {
@@ -14,10 +14,17 @@
         "info": ""
     },
     {
+        "id": "2a6acf5c.4cd72",
+        "type": "tab",
+        "label": "Simulator",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "41da34e8.8efd3c",
         "type": "tab",
-        "label": "Shoot message",
-        "disabled": false,
+        "label": "Shoot message (old)",
+        "disabled": true,
         "info": ""
     },
     {
@@ -26,6 +33,93 @@
         "label": "Weapons",
         "disabled": true,
         "info": ""
+    },
+    {
+        "id": "53a5d437.78ad4c",
+        "type": "subflow",
+        "name": "Player",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "8d61be0f.da348"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1080,
+                "y": 400,
+                "wires": [
+                    {
+                        "id": "5e088be.662c974",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 780,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "d7579d35.0c386",
+                        "port": 0
+                    },
+                    {
+                        "id": "98fac7f.fe21738",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "ID",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "ID"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "teamID",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Team ID"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            }
+        ],
+        "color": "#3FADB5",
+        "inputLabels": [
+            "Actions"
+        ],
+        "outputLabels": [
+            "Fire",
+            "Status"
+        ],
+        "icon": "font-awesome/fa-child"
     },
     {
         "id": "224ffbe1.ee21b4",
@@ -89,6 +183,67 @@
         "y": 99,
         "w": 992,
         "h": 262
+    },
+    {
+        "id": "1bde8982.2d5936",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Configuration / referee functions",
+        "style": {
+            "fill": "#7f7f7f",
+            "label": true,
+            "color": "#000000",
+            "fill-opacity": "0.43"
+        },
+        "nodes": [
+            "8f867d98.2e336",
+            "34f589ca.b637b6"
+        ],
+        "x": 104,
+        "y": 659,
+        "w": 207,
+        "h": 142
+    },
+    {
+        "id": "9b36f037.2f8ea",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Shooting process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "3ff1cf96.f69da",
+            "95dd4262.9e821",
+            "33cb6943.3cca96",
+            "1907545c.ab151c",
+            "f05619b5.440d78",
+            "788b9b24.3cb914",
+            "4cdc72fe.cb02cc",
+            "5e088be.662c974",
+            "c0307ab2.7556d8"
+        ],
+        "x": 114,
+        "y": 239,
+        "w": 1052,
+        "h": 262
+    },
+    {
+        "id": "8cb898f3.0a9998",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Reload process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "a539473f.0ee908",
+            "6fdc024b.65851c"
+        ],
+        "x": 114,
+        "y": 519,
+        "w": 452,
+        "h": 82
     },
     {
         "id": "cc6e3a1c.39bae8",
@@ -1137,5 +1292,612 @@
                 "8b8884bc.f7e608"
             ]
         ]
+    },
+    {
+        "id": "cd10c93e.b4e7d8",
+        "type": "inject",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize player and pistol",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 270,
+        "y": 60,
+        "wires": [
+            [
+                "d7579d35.0c386",
+                "98fac7f.fe21738"
+            ]
+        ]
+    },
+    {
+        "id": "d7579d35.0c386",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize player object",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "player",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "player.life",
+                "pt": "flow",
+                "to": "100",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "player.ID",
+                "pt": "flow",
+                "to": "ID",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "player.type",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "player.teamID",
+                "pt": "flow",
+                "to": "teamID",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "player",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "player",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9515895a.048d18",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "name": "Add or substract life",
+        "func": "var possibleLife = flow.get(\"player.life\") + msg.payload;\n\nif (possibleLife < 0){\n    flow.set(\"player.life\", 0);\n    return;\n}\nflow.set(\"player.life\", possibleLife);\nreturn;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8f867d98.2e336",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "1bde8982.2d5936",
+        "name": "Set player ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "player.ID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 210,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "34f589ca.b637b6",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "1bde8982.2d5936",
+        "name": "Set team ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "player.teamID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 200,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d61be0f.da348",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "name": "Redirect according msg.topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "initialize",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "hit",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fire",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 3,
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "d7579d35.0c386"
+            ],
+            [
+                "9515895a.048d18"
+            ],
+            [
+                "4cdc72fe.cb02cc"
+            ]
+        ]
+    },
+    {
+        "id": "f61f3c91.6c85d",
+        "type": "subflow:53a5d437.78ad4c",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "env": [
+            {
+                "name": "ID",
+                "value": "1",
+                "type": "num"
+            }
+        ],
+        "x": 440,
+        "y": 180,
+        "wires": [
+            [
+                "e974c45e.0f18f8"
+            ],
+            [
+                "30f99277.99122e"
+            ]
+        ]
+    },
+    {
+        "id": "e974c45e.0f18f8",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Fire",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c0307ab2.7556d8",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Player ID, team ID, type of gun or quantity",
+        "info": "",
+        "x": 980,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5e088be.662c974",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Build message",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.playerID",
+                "pt": "msg",
+                "to": "player.ID",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "payload.teamID",
+                "pt": "msg",
+                "to": "player.teamID",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "payload.damage",
+                "pt": "msg",
+                "to": "pistol.damage",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "98fac7f.fe21738",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize pistol",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "pistol",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "pistol.damage",
+                "pt": "flow",
+                "to": "-25",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.inMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.outOfMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.maxPerMagazine",
+                "pt": "flow",
+                "to": "10",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.maxCapacity",
+                "pt": "flow",
+                "to": "100",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a539473f.0ee908",
+        "type": "inject",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "Reload",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "8",
+        "payloadType": "num",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "6fdc024b.65851c"
+            ]
+        ]
+    },
+    {
+        "id": "6fdc024b.65851c",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pistol.inMagazine",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 420,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3ff1cf96.f69da",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Rate or cooldown",
+        "info": "",
+        "x": 300,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "95dd4262.9e821",
+        "type": "debug",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Player is dead",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "33cb6943.3cca96",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Is player alive?",
+        "property": "player.life",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 320,
+        "y": 400,
+        "wires": [
+            [
+                "f05619b5.440d78"
+            ],
+            [
+                "95dd4262.9e821"
+            ]
+        ]
+    },
+    {
+        "id": "1907545c.ab151c",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Shoot and substract one bullet",
+        "func": "var newInMagazine = flow.get(\"pistol.inMagazine\") - 1;\nflow.set(\"pistol.inMagazine\", newInMagazine);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 870,
+        "y": 280,
+        "wires": [
+            [
+                "5e088be.662c974"
+            ]
+        ]
+    },
+    {
+        "id": "f05619b5.440d78",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Are there bullets in magazine?",
+        "property": "pistol.inMagazine",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 360,
+        "wires": [
+            [
+                "1907545c.ab151c"
+            ],
+            [
+                "788b9b24.3cb914"
+            ]
+        ]
+    },
+    {
+        "id": "788b9b24.3cb914",
+        "type": "debug",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Magazine is empty",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4cdc72fe.cb02cc",
+        "type": "delay",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "33cb6943.3cca96"
+            ]
+        ]
+    },
+    {
+        "id": "32f492e3.17362e",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "fire",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "30f99277.99122e",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 220,
+        "wires": []
     }
 ]
