@@ -1,4 +1,4 @@
-# Laser tag game with Raspberry Pi + Node-RED + LIRC
+# Laser tag game with Raspberry Pi + Node-RED + LIRC // WORK IN PROGRESS
 Set of flows to create your own Raspberry Pi lasertag game using Node-RED.
 
 ![System Structure](/images/Lasertag_System_Structure.svg)
