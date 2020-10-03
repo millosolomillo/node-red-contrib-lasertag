@@ -67,11 +67,15 @@
                 "y": 200,
                 "wires": [
                     {
-                        "id": "d7579d35.0c386",
+                        "id": "38771853.3148c8",
                         "port": 0
                     },
                     {
-                        "id": "98fac7f.fe21738",
+                        "id": "5d13a153.0f116",
+                        "port": 0
+                    },
+                    {
+                        "id": "1f9b3479.2fd2dc",
                         "port": 0
                     }
                 ]
@@ -95,12 +99,60 @@
                 }
             },
             {
-                "name": "teamID",
+                "name": "TEAM_ID",
                 "type": "num",
                 "value": "",
                 "ui": {
                     "label": {
                         "en-US": "Team ID"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "PISTOL_DAMAGE",
+                "type": "num",
+                "value": "-25",
+                "ui": {
+                    "label": {
+                        "en-US": "Pistol damage"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "MAX_PER_MAGAZINE",
+                "type": "num",
+                "value": "5",
+                "ui": {
+                    "label": {
+                        "en-US": "Magazine capacity"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "MAX_CAPACITY",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Bullets total capacity"
                     },
                     "type": "input",
                     "opts": {
@@ -134,9 +186,7 @@
             "d88d73aa.fc3e8"
         ],
         "x": 594,
-        "y": 179,
-        "w": 412,
-        "h": 82
+        "y": 179
     },
     {
         "id": "fc436f64.2d9e7",
@@ -156,9 +206,7 @@
             "2405ffbc.a427c"
         ],
         "x": 134,
-        "y": 359,
-        "w": 382,
-        "h": 142
+        "y": 359
     },
     {
         "id": "84798051.1898d",
@@ -180,9 +228,7 @@
             "ce412c57.714d5"
         ],
         "x": 14,
-        "y": 99,
-        "w": 992,
-        "h": 262
+        "y": 99
     },
     {
         "id": "1bde8982.2d5936",
@@ -200,7 +246,7 @@
             "34f589ca.b637b6"
         ],
         "x": 104,
-        "y": 659,
+        "y": 739,
         "w": 207,
         "h": 142
     },
@@ -232,18 +278,19 @@
         "id": "8cb898f3.0a9998",
         "type": "group",
         "z": "53a5d437.78ad4c",
-        "name": "Reload process",
+        "name": "Reload and refill process",
         "style": {
             "label": true
         },
         "nodes": [
-            "a539473f.0ee908",
-            "6fdc024b.65851c"
+            "de9b638f.b04d8",
+            "e22f4de7.3ae3d",
+            "9549fe0c.25eb9"
         ],
-        "x": 114,
-        "y": 519,
-        "w": 452,
-        "h": 82
+        "x": 34,
+        "y": 539,
+        "w": 832,
+        "h": 162
     },
     {
         "id": "cc6e3a1c.39bae8",
@@ -1349,22 +1396,8 @@
                 "t": "set",
                 "p": "player.teamID",
                 "pt": "flow",
-                "to": "teamID",
+                "to": "TEAM_ID",
                 "tot": "env"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "player",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "player",
-                "tot": "str"
             }
         ],
         "action": "",
@@ -1375,7 +1408,9 @@
         "x": 560,
         "y": 60,
         "wires": [
-            []
+            [
+                "38771853.3148c8"
+            ]
         ]
     },
     {
@@ -1413,7 +1448,7 @@
         "to": "",
         "reg": false,
         "x": 210,
-        "y": 700,
+        "y": 780,
         "wires": [
             []
         ]
@@ -1439,7 +1474,7 @@
         "to": "",
         "reg": false,
         "x": 200,
-        "y": 760,
+        "y": 840,
         "wires": [
             []
         ]
@@ -1466,22 +1501,47 @@
                 "t": "eq",
                 "v": "fire",
                 "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "reload",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "refill",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "status",
+                "vt": "str"
             }
         ],
         "checkall": "false",
         "repair": false,
-        "outputs": 3,
+        "outputs": 6,
         "x": 260,
         "y": 120,
         "wires": [
             [
-                "d7579d35.0c386"
+                "d7579d35.0c386",
+                "98fac7f.fe21738"
             ],
             [
                 "9515895a.048d18"
             ],
             [
                 "4cdc72fe.cb02cc"
+            ],
+            [
+                "9549fe0c.25eb9"
+            ],
+            [
+                "de9b638f.b04d8"
+            ],
+            [
+                "1f9b3479.2fd2dc"
             ]
         ]
     },
@@ -1492,8 +1552,18 @@
         "name": "",
         "env": [
             {
-                "name": "ID",
-                "value": "1",
+                "name": "MAX_CAPACITY",
+                "value": "100",
+                "type": "num"
+            },
+            {
+                "name": "pistolDamage",
+                "value": "",
+                "type": "num"
+            },
+            {
+                "name": "maxPerMagazine",
+                "value": "",
                 "type": "num"
             }
         ],
@@ -1544,25 +1614,30 @@
         "name": "Build message",
         "rules": [
             {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
                 "t": "set",
                 "p": "payload.playerID",
                 "pt": "msg",
-                "to": "player.ID",
-                "tot": "flow"
+                "to": "ID",
+                "tot": "env"
             },
             {
                 "t": "set",
                 "p": "payload.teamID",
                 "pt": "msg",
-                "to": "player.teamID",
-                "tot": "flow"
+                "to": "TEAM_ID",
+                "tot": "env"
             },
             {
                 "t": "set",
                 "p": "payload.damage",
                 "pt": "msg",
-                "to": "pistol.damage",
-                "tot": "flow"
+                "to": "PISTOL_DAMAGE",
+                "tot": "env"
             }
         ],
         "action": "",
@@ -1591,8 +1666,8 @@
                 "t": "set",
                 "p": "pistol.damage",
                 "pt": "flow",
-                "to": "-25",
-                "tot": "num"
+                "to": "PISTOL_DAMAGE",
+                "tot": "env"
             },
             {
                 "t": "set",
@@ -1612,29 +1687,15 @@
                 "t": "set",
                 "p": "pistol.maxPerMagazine",
                 "pt": "flow",
-                "to": "10",
-                "tot": "num"
+                "to": "MAX_PER_MAGAZINE",
+                "tot": "env"
             },
             {
                 "t": "set",
                 "p": "pistol.maxCapacity",
                 "pt": "flow",
-                "to": "100",
-                "tot": "num"
-            },
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "pistol",
-                "tot": "flow"
-            },
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "pistol",
-                "tot": "str"
+                "to": "MAX_CAPACITY",
+                "tot": "env"
             }
         ],
         "action": "",
@@ -1645,59 +1706,9 @@
         "x": 540,
         "y": 20,
         "wires": [
-            []
-        ]
-    },
-    {
-        "id": "a539473f.0ee908",
-        "type": "inject",
-        "z": "53a5d437.78ad4c",
-        "g": "8cb898f3.0a9998",
-        "name": "Reload",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "8",
-        "payloadType": "num",
-        "x": 210,
-        "y": 560,
-        "wires": [
             [
-                "6fdc024b.65851c"
+                "5d13a153.0f116"
             ]
-        ]
-    },
-    {
-        "id": "6fdc024b.65851c",
-        "type": "change",
-        "z": "53a5d437.78ad4c",
-        "g": "8cb898f3.0a9998",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "pistol.inMagazine",
-                "pt": "global",
-                "to": "payload",
-                "tot": "msg"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 420,
-        "y": 560,
-        "wires": [
-            []
         ]
     },
     {
@@ -1892,12 +1903,224 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 670,
         "y": 220,
         "wires": []
+    },
+    {
+        "id": "38771853.3148c8",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Output player status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "player",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "player",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d13a153.0f116",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Output pistol status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de9b638f.b04d8",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "Refill",
+        "func": "var possibleNewQuantity = flow.get(\"pistol.outOfMagazine\") + msg.payload;\n\nif (possibleNewQuantity > env.get(\"MAX_CAPCITY\")){\n    flow.set(\"pistol.outOfMagazine\", env.get(\"MAX_CAPACITY\"));\n    return;\n}\nelse {\n    flow.set(\"pistol.outOfMagazine\", possibleNewQuantity);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 190,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e22f4de7.3ae3d",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "NOTE: Refill bullets are \"lost\" if maxCapacity is reached (nothing is checking how many bullets there are before refill)",
+        "info": "",
+        "x": 450,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9549fe0c.25eb9",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "Reload",
+        "func": "var maxPerMagazine = env.get(\"MAX_PER_MAGAZINE\");\nvar inMagazine = flow.get(\"pistol.inMagazine\");\nvar outOfMagazine = flow.get(\"pistol.outOfMagazine\");\n\nvar freeSpace = maxPerMagazine - inMagazine;\n\nif (freeSpace === 0 || outOfMagazine === 0){\n    // Do nothing in this case.\n    return msg;\n}\nelse if (freeSpace <= outOfMagazine){\n    inMagazine = inMagazine + freeSpace;\n    outOfMagazine = outOfMagazine - freeSpace;\n}\nelse if (freeSpace > outOfMagazine){\n    inMagazine = inMagazine + outOfMagazine;\n    outOfMagazine = 0;\n}\nflow.set(\"pistol.inMagazine\", inMagazine);\nflow.set(\"pistol.outOfMagazine\", outOfMagazine);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 200,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c85fb8f9.bf9f98",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reload",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "71af4519.6c29cc",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "refill",
+        "payload": "5",
+        "payloadType": "num",
+        "x": 220,
+        "y": 300,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "54e45bda.d51154",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "status",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "1f9b3479.2fd2dc",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "name": "Query player status",
+        "func": "var msg1 = { payload : flow.get(\"player\")};\nvar msg2 = { payload : flow.get(\"pistol\")};\nreturn [ [ msg1, msg2 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 650,
+        "y": 120,
+        "wires": [
+            []
+        ]
     }
 ]
