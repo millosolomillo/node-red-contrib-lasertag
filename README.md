@@ -16,7 +16,7 @@ Set of flows to create your own Raspberry Pi lasertag game using Node-RED.
 
 Features/functionalities draft:
 - Player properties:
-  - Type (human, “grenade”, referee, etc).
+  - Type (human, “grenade”, referee, etc). (Not yet implemented)
   - Is alive?
   - Quantity of life (added).
   - ID (added).
