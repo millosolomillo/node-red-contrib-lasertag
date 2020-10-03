@@ -1,0 +1,12 @@
+{
+    "name": "node-red-contrib-lasertag",
+    "description": "Set of flows to create your own Raspberry Pi lasertag game using Node-RED.",
+    "version": "0.0.1",
+    "dependencies": {},
+    "node-red": {
+        "settings": {
+            "flowFile": "flows/flows.json",
+            "credentialsFile": "flows/flows_cred.json"
+        }
+    }
+}
