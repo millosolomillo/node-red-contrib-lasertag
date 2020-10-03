@@ -9,9 +9,9 @@ Set of flows to create your own Raspberry Pi lasertag game using Node-RED.
 
 ![Player Flow](/images/player_flow.JPG)
 
-**Shooting flow:**
+**Simulator flow:**
 
-![Shooting Flow](/images/shooting_flow.JPG)
+![Simulator Flow](/images/simulator_flow.JPG)
 
 
 Features/functionalities draft:
