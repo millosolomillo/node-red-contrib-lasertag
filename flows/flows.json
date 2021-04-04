@@ -1,1 +1,2457 @@
-[{"id":"2a6acf5c.4cd72","type":"tab","label":"Simulator","disabled":false,"info":""},{"id":"53a5d437.78ad4c","type":"subflow","name":"Player","info":"","category":"","in":[{"x":80,"y":120,"wires":[{"id":"8d61be0f.da348"}]}],"out":[{"x":1080,"y":400,"wires":[{"id":"5e088be.662c974","port":0}]},{"x":780,"y":200,"wires":[{"id":"38771853.3148c8","port":0},{"id":"5d13a153.0f116","port":0},{"id":"1f9b3479.2fd2dc","port":0}]}],"env":[{"name":"ID","type":"num","value":"","ui":{"label":{"en-US":"ID"},"type":"input","opts":{"types":["num"]}}},{"name":"TEAM_ID","type":"num","value":"","ui":{"label":{"en-US":"Team ID"},"type":"input","opts":{"types":["num"]}}},{"name":"PISTOL_DAMAGE","type":"num","value":"-25","ui":{"label":{"en-US":"Pistol damage"},"type":"input","opts":{"types":["num"]}}},{"name":"MAX_PER_MAGAZINE","type":"num","value":"5","ui":{"label":{"en-US":"Magazine capacity"},"type":"input","opts":{"types":["num"]}}},{"name":"MAX_CAPACITY","type":"num","value":"","ui":{"label":{"en-US":"Bullets total capacity"},"type":"input","opts":{"types":["num"]}}}],"color":"#3FADB5","inputLabels":["Actions"],"outputLabels":["Fire","Status"],"icon":"font-awesome/fa-child"},{"id":"1bde8982.2d5936","type":"group","z":"53a5d437.78ad4c","name":"Configuration / referee functions","style":{"fill":"#7f7f7f","label":true,"color":"#000000","fill-opacity":"0.43"},"nodes":["8f867d98.2e336","34f589ca.b637b6"],"x":104,"y":739,"w":207,"h":142},{"id":"9b36f037.2f8ea","type":"group","z":"53a5d437.78ad4c","name":"Shooting process","style":{"label":true},"nodes":["3ff1cf96.f69da","95dd4262.9e821","33cb6943.3cca96","1907545c.ab151c","f05619b5.440d78","788b9b24.3cb914","4cdc72fe.cb02cc","5e088be.662c974","c0307ab2.7556d8"],"x":114,"y":239,"w":992,"h":262},{"id":"8cb898f3.0a9998","type":"group","z":"53a5d437.78ad4c","name":"Reload and refill process","style":{"label":true},"nodes":["de9b638f.b04d8","e22f4de7.3ae3d","9549fe0c.25eb9"],"x":34,"y":539,"w":952,"h":162},{"id":"cc6e3a1c.39bae8","type":"ui_base","theme":{"name":"theme-light","lightTheme":{"default":"#0094CE","baseColor":"#0094CE","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":true,"reset":false},"darkTheme":{"default":"#097479","baseColor":"#097479","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif","edited":false},"customTheme":{"name":"Untitled Theme 1","default":"#4B7930","baseColor":"#4B7930","baseFont":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"},"themeState":{"base-color":{"default":"#0094CE","value":"#0094CE","edited":false},"page-titlebar-backgroundColor":{"value":"#0094CE","edited":false},"page-backgroundColor":{"value":"#fafafa","edited":false},"page-sidebar-backgroundColor":{"value":"#ffffff","edited":false},"group-textColor":{"value":"#1bbfff","edited":false},"group-borderColor":{"value":"#ffffff","edited":false},"group-backgroundColor":{"value":"#ffffff","edited":false},"widget-textColor":{"value":"#111111","edited":false},"widget-backgroundColor":{"value":"#0094ce","edited":false},"widget-borderColor":{"value":"#ffffff","edited":false},"base-font":{"value":"-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"}},"angularTheme":{"primary":"indigo","accents":"blue","warn":"red","background":"grey"}},"site":{"name":"Node-RED Dashboard","hideToolbar":"false","allowSwipe":"false","lockMenu":"false","allowTempTheme":"true","dateFormat":"DD/MM/YYYY","sizes":{"sx":48,"sy":48,"gx":6,"gy":6,"cx":6,"cy":6,"px":0,"py":0}}},{"id":"ec19520c.3da12","type":"ui_tab","z":"","name":"Home","icon":"dashboard","disabled":false,"hidden":false},{"id":"9732ec7d.720b","type":"ui_group","z":"","name":"Default","tab":"ec19520c.3da12","order":1,"disp":true,"width":"6","collapse":false},{"id":"cd10c93e.b4e7d8","type":"inject","z":"53a5d437.78ad4c","name":"Initialize player and pistol","props":[],"repeat":"","crontab":"","once":true,"onceDelay":0.1,"topic":"","x":270,"y":40,"wires":[["d7579d35.0c386","98fac7f.fe21738"]]},{"id":"d7579d35.0c386","type":"change","z":"53a5d437.78ad4c","name":"Initialize player object","rules":[{"t":"delete","p":"player","pt":"flow"},{"t":"set","p":"player.life","pt":"flow","to":"100","tot":"num"},{"t":"set","p":"player.ID","pt":"flow","to":"ID","tot":"env"},{"t":"set","p":"player.type","pt":"flow","to":"0","tot":"num"},{"t":"set","p":"player.teamID","pt":"flow","to":"TEAM_ID","tot":"env"}],"action":"","property":"","from":"","to":"","reg":false,"x":560,"y":60,"wires":[["38771853.3148c8"]]},{"id":"9515895a.048d18","type":"function","z":"53a5d437.78ad4c","name":"Add or substract life","func":"var possibleLife = flow.get(\"player.life\") + msg.payload;\n\nif (possibleLife < 0){\n    flow.set(\"player.life\", 0);\n    return;\n}\nflow.set(\"player.life\", possibleLife);\nreturn;","outputs":0,"noerr":0,"initialize":"","finalize":"","x":580,"y":180,"wires":[]},{"id":"8f867d98.2e336","type":"change","z":"53a5d437.78ad4c","g":"1bde8982.2d5936","name":"Set player ID","rules":[{"t":"set","p":"player.ID","pt":"global","to":"payload","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":210,"y":780,"wires":[[]]},{"id":"34f589ca.b637b6","type":"change","z":"53a5d437.78ad4c","g":"1bde8982.2d5936","name":"Set team ID","rules":[{"t":"set","p":"player.teamID","pt":"global","to":"payload","tot":"msg"}],"action":"","property":"","from":"","to":"","reg":false,"x":200,"y":840,"wires":[[]]},{"id":"8d61be0f.da348","type":"switch","z":"53a5d437.78ad4c","name":"Redirect according msg.topic","property":"topic","propertyType":"msg","rules":[{"t":"eq","v":"initialize","vt":"str"},{"t":"eq","v":"hit","vt":"str"},{"t":"eq","v":"fire","vt":"str"},{"t":"eq","v":"reload","vt":"str"},{"t":"eq","v":"refill","vt":"str"},{"t":"eq","v":"status","vt":"str"}],"checkall":"false","repair":false,"outputs":6,"x":260,"y":120,"wires":[["d7579d35.0c386","98fac7f.fe21738"],["9515895a.048d18"],["4cdc72fe.cb02cc"],["9549fe0c.25eb9"],["de9b638f.b04d8"],["1f9b3479.2fd2dc"]]},{"id":"f61f3c91.6c85d","type":"subflow:53a5d437.78ad4c","z":"2a6acf5c.4cd72","name":"","env":[{"name":"MAX_CAPACITY","value":"100","type":"num"},{"name":"pistolDamage","value":"","type":"num"},{"name":"maxPerMagazine","value":"","type":"num"}],"x":450,"y":180,"wires":[["e974c45e.0f18f8"],["30f99277.99122e"]]},{"id":"e974c45e.0f18f8","type":"debug","z":"2a6acf5c.4cd72","name":"Fire","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"true","targetType":"full","statusVal":"","statusType":"auto","x":680,"y":180,"wires":[]},{"id":"c0307ab2.7556d8","type":"comment","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Player ID, team ID, type of gun.","info":"","x":950,"y":360,"wires":[]},{"id":"5e088be.662c974","type":"change","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Build message","rules":[{"t":"delete","p":"payload","pt":"msg"},{"t":"set","p":"payload.playerID","pt":"msg","to":"player.ID","tot":"flow"},{"t":"set","p":"payload.teamID","pt":"msg","to":"player.teamID","tot":"flow"},{"t":"set","p":"payload.weaponType","pt":"msg","to":"pistol","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":900,"y":400,"wires":[[]]},{"id":"98fac7f.fe21738","type":"change","z":"53a5d437.78ad4c","name":"Initialize pistol","rules":[{"t":"delete","p":"pistol","pt":"flow"},{"t":"set","p":"pistol.damage","pt":"flow","to":"PISTOL_DAMAGE","tot":"env"},{"t":"set","p":"pistol.inMagazine","pt":"flow","to":"0","tot":"num"},{"t":"set","p":"pistol.outOfMagazine","pt":"flow","to":"0","tot":"num"},{"t":"set","p":"pistol.maxPerMagazine","pt":"flow","to":"MAX_PER_MAGAZINE","tot":"env"},{"t":"set","p":"pistol.maxCapacity","pt":"flow","to":"MAX_CAPACITY","tot":"env"}],"action":"","property":"","from":"","to":"","reg":false,"x":540,"y":20,"wires":[["5d13a153.0f116"]]},{"id":"3ff1cf96.f69da","type":"comment","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Rate or cooldown","info":"","x":300,"y":300,"wires":[]},{"id":"95dd4262.9e821","type":"debug","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Player is dead","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":320,"y":460,"wires":[]},{"id":"33cb6943.3cca96","type":"switch","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Is player alive?","property":"player.life","propertyType":"flow","rules":[{"t":"gt","v":"0","vt":"num"},{"t":"else"}],"checkall":"false","repair":false,"outputs":2,"x":320,"y":400,"wires":[["f05619b5.440d78"],["95dd4262.9e821"]]},{"id":"1907545c.ab151c","type":"function","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Shoot and substract one bullet","func":"var newInMagazine = flow.get(\"pistol.inMagazine\") - 1;\nflow.set(\"pistol.inMagazine\", newInMagazine);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":870,"y":280,"wires":[["5e088be.662c974"]]},{"id":"f05619b5.440d78","type":"switch","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Are there bullets in magazine?","property":"pistol.inMagazine","propertyType":"flow","rules":[{"t":"gt","v":"0","vt":"num"},{"t":"else"}],"checkall":"false","repair":false,"outputs":2,"x":590,"y":360,"wires":[["1907545c.ab151c"],["788b9b24.3cb914"]]},{"id":"788b9b24.3cb914","type":"debug","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"Magazine is empty","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":570,"y":420,"wires":[]},{"id":"4cdc72fe.cb02cc","type":"delay","z":"53a5d437.78ad4c","g":"9b36f037.2f8ea","name":"","pauseType":"rate","timeout":"5","timeoutUnits":"seconds","rate":"1","nbRateUnits":"1","rateUnits":"second","randomFirst":"1","randomLast":"5","randomUnits":"seconds","drop":true,"x":210,"y":340,"wires":[["33cb6943.3cca96"]]},{"id":"32f492e3.17362e","type":"inject","z":"2a6acf5c.4cd72","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"fire","payload":"","payloadType":"date","x":270,"y":180,"wires":[["f61f3c91.6c85d"]]},{"id":"30f99277.99122e","type":"debug","z":"2a6acf5c.4cd72","name":"Status","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","targetType":"msg","statusVal":"","statusType":"auto","x":670,"y":220,"wires":[]},{"id":"38771853.3148c8","type":"change","z":"53a5d437.78ad4c","name":"Output player status","rules":[{"t":"set","p":"payload","pt":"msg","to":"player","tot":"flow"},{"t":"set","p":"topic","pt":"msg","to":"player","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":800,"y":60,"wires":[[]]},{"id":"5d13a153.0f116","type":"change","z":"53a5d437.78ad4c","name":"Output pistol status","rules":[{"t":"set","p":"payload","pt":"msg","to":"pistol","tot":"flow"},{"t":"set","p":"topic","pt":"msg","to":"pistol","tot":"str"}],"action":"","property":"","from":"","to":"","reg":false,"x":790,"y":20,"wires":[[]]},{"id":"de9b638f.b04d8","type":"function","z":"53a5d437.78ad4c","g":"8cb898f3.0a9998","name":"Refill","func":"var possibleNewQuantity = flow.get(\"pistol.outOfMagazine\") + msg.payload;\n\nif (possibleNewQuantity > env.get(\"MAX_CAPACITY\")){\n    flow.set(\"pistol.outOfMagazine\", env.get(\"MAX_CAPACITY\"));\n    return;\n}\nelse {\n    flow.set(\"pistol.outOfMagazine\", possibleNewQuantity);\n}\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":190,"y":620,"wires":[[]]},{"id":"e22f4de7.3ae3d","type":"comment","z":"53a5d437.78ad4c","g":"8cb898f3.0a9998","name":"NOTE: Incoming refill bullets in excess are \"lost\" if maxCapacity is reached (nothing is checking how many bullets there are before refill)","info":"","x":510,"y":660,"wires":[]},{"id":"9549fe0c.25eb9","type":"function","z":"53a5d437.78ad4c","g":"8cb898f3.0a9998","name":"Reload","func":"var maxPerMagazine = env.get(\"MAX_PER_MAGAZINE\");\nvar inMagazine = flow.get(\"pistol.inMagazine\");\nvar outOfMagazine = flow.get(\"pistol.outOfMagazine\");\n\nvar freeSpace = maxPerMagazine - inMagazine;\n\nif (freeSpace === 0 || outOfMagazine === 0){\n    // Do nothing in this case.\n    return msg;\n}\nelse if (freeSpace <= outOfMagazine){\n    inMagazine = inMagazine + freeSpace;\n    outOfMagazine = outOfMagazine - freeSpace;\n}\nelse if (freeSpace > outOfMagazine){\n    inMagazine = inMagazine + outOfMagazine;\n    outOfMagazine = 0;\n}\nflow.set(\"pistol.inMagazine\", inMagazine);\nflow.set(\"pistol.outOfMagazine\", outOfMagazine);\nreturn msg;","outputs":1,"noerr":0,"initialize":"","finalize":"","x":200,"y":580,"wires":[[]]},{"id":"c85fb8f9.bf9f98","type":"inject","z":"2a6acf5c.4cd72","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"reload","payload":"","payloadType":"date","x":250,"y":240,"wires":[["f61f3c91.6c85d"]]},{"id":"71af4519.6c29cc","type":"inject","z":"2a6acf5c.4cd72","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"refill","payload":"5","payloadType":"num","x":220,"y":300,"wires":[["f61f3c91.6c85d"]]},{"id":"54e45bda.d51154","type":"inject","z":"2a6acf5c.4cd72","name":"","props":[{"p":"payload"},{"p":"topic","vt":"str"}],"repeat":"","crontab":"","once":false,"onceDelay":0.1,"topic":"status","payload":"","payloadType":"date","x":250,"y":360,"wires":[["f61f3c91.6c85d"]]},{"id":"1f9b3479.2fd2dc","type":"function","z":"53a5d437.78ad4c","name":"Query player status","func":"var msg1 = { payload : flow.get(\"player\")};\nvar msg2 = { payload : flow.get(\"pistol\")};\nreturn [ [ msg1, msg2 ] ];","outputs":1,"noerr":0,"initialize":"","finalize":"","x":650,"y":120,"wires":[[]]}]
+[
+    {
+        "id": "2a6acf5c.4cd72",
+        "type": "tab",
+        "label": "Simulator",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "53a5d437.78ad4c",
+        "type": "subflow",
+        "name": "Player",
+        "info": "",
+        "category": "",
+        "in": [
+            {
+                "x": 80,
+                "y": 120,
+                "wires": [
+                    {
+                        "id": "8d61be0f.da348"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1080,
+                "y": 400,
+                "wires": [
+                    {
+                        "id": "5e088be.662c974",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 780,
+                "y": 200,
+                "wires": [
+                    {
+                        "id": "38771853.3148c8",
+                        "port": 0
+                    },
+                    {
+                        "id": "5d13a153.0f116",
+                        "port": 0
+                    },
+                    {
+                        "id": "1f9b3479.2fd2dc",
+                        "port": 0
+                    }
+                ]
+            }
+        ],
+        "env": [
+            {
+                "name": "ID",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "ID"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "TEAM_ID",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Team ID"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "PISTOL_DAMAGE",
+                "type": "num",
+                "value": "-25",
+                "ui": {
+                    "label": {
+                        "en-US": "Pistol damage"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "MAX_PER_MAGAZINE",
+                "type": "num",
+                "value": "5",
+                "ui": {
+                    "label": {
+                        "en-US": "Magazine capacity"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "MAX_CAPACITY",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Bullets total capacity"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            }
+        ],
+        "color": "#3FADB5",
+        "inputLabels": [
+            "Actions"
+        ],
+        "outputLabels": [
+            "Fire",
+            "Status"
+        ],
+        "icon": "font-awesome/fa-child"
+    },
+    {
+        "id": "d53ff5ad.362298",
+        "type": "subflow",
+        "name": "Weapon",
+        "info": "<p>Connects to a MQTT broker and publishes messages.</p>\r\n\r\n<h3>Inputs</h3>\r\n    <dl class=\"message-properties\">\r\n        <dt>payload\r\n            <span class=\"property-type\">string | buffer</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n        <dt class=\"optional\">topic <span class=\"property-type\">string</span></dt>\r\n        <dd> the MQTT topic to publish to.</dd>\r\n    </dl>\r\n\r\n <h3>Outputs</h3>\r\n     <ol class=\"node-ports\">\r\n         <li>Standard output\r\n             <dl class=\"message-properties\">\r\n                 <dt>payload <span class=\"property-type\">string</span></dt>\r\n                 <dd>the standard output of the command.</dd>\r\n             </dl>\r\n         </li>\r\n         <li>Standard error\r\n             <dl class=\"message-properties\">\r\n                 <dt>payload <span class=\"property-type\">string</span></dt>\r\n                 <dd>the standard error of the command.</dd>\r\n             </dl>\r\n         </li>\r\n     </ol>\r\n\r\n<h3>Details</h3>\r\n    <p><code>msg.payload</code> is used as the payload of the published message.\r\n    If it contains an Object it will be converted to a JSON string before being sent.\r\n    If it contains a binary Buffer the message will be published as-is.</p>\r\n    <p>The topic used can be configured in the node or, if left blank, can be set\r\n    by <code>msg.topic</code>.</p>\r\n    <p>Likewise the QoS and retain values can be configured in the node or, if left\r\n    blank, set by <code>msg.qos</code> and <code>msg.retain</code> respectively.</p>\r\n\r\n<h3>References</h3>\r\n    <ul>\r\n        <li><a>Twitter API docs</a> - full description of <code>msg.tweet</code> property</li>\r\n        <li><a>GitHub</a> - the nodes github repository</li>\r\n###     </ul>",
+        "category": "",
+        "in": [
+            {
+                "x": 100,
+                "y": 320,
+                "wires": [
+                    {
+                        "id": "dce5fe3a.5a063"
+                    }
+                ]
+            }
+        ],
+        "out": [
+            {
+                "x": 1420,
+                "y": 200,
+                "wires": []
+            }
+        ],
+        "env": [
+            {
+                "name": "WEAPON_ID",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "ID number weapon"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "MAX_PER_MAGAZINE",
+                "type": "num",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "en-US": "Max. bullets per magazine"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "WEAPON_TYPE",
+                "type": "str",
+                "value": "semi",
+                "ui": {
+                    "label": {
+                        "en-US": "Weapon type"
+                    },
+                    "type": "select",
+                    "opts": {
+                        "opts": [
+                            {
+                                "l": {
+                                    "en-US": "Semi-automatic"
+                                },
+                                "v": "semi"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Burst of 3"
+                                },
+                                "v": "burst"
+                            },
+                            {
+                                "l": {
+                                    "en-US": "Fully automatic"
+                                },
+                                "v": "auto"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "BURST_ROUNDS",
+                "type": "num",
+                "value": "3",
+                "ui": {
+                    "label": {
+                        "en-US": "Burst rounds"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "ROUNDS_PER_MINUTE",
+                "type": "num",
+                "value": "1000",
+                "ui": {
+                    "label": {
+                        "en-US": "Rounds per minute"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "TIME_TO_RELOAD",
+                "type": "num",
+                "value": "1",
+                "ui": {
+                    "label": {
+                        "en-US": "Time to reload (seconds)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            }
+        ],
+        "color": "#E9967A",
+        "icon": "font-awesome/fa-crosshairs",
+        "status": {
+            "x": 215,
+            "y": 30,
+            "wires": []
+        }
+    },
+    {
+        "id": "1bde8982.2d5936",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Configuration / referee functions",
+        "style": {
+            "fill": "#7f7f7f",
+            "label": true,
+            "color": "#000000",
+            "fill-opacity": "0.43"
+        },
+        "nodes": [
+            "8f867d98.2e336",
+            "34f589ca.b637b6"
+        ],
+        "x": 104,
+        "y": 739
+    },
+    {
+        "id": "9b36f037.2f8ea",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Shooting process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "3ff1cf96.f69da",
+            "95dd4262.9e821",
+            "33cb6943.3cca96",
+            "1907545c.ab151c",
+            "f05619b5.440d78",
+            "788b9b24.3cb914",
+            "4cdc72fe.cb02cc",
+            "5e088be.662c974",
+            "c0307ab2.7556d8"
+        ],
+        "x": 114,
+        "y": 239
+    },
+    {
+        "id": "8cb898f3.0a9998",
+        "type": "group",
+        "z": "53a5d437.78ad4c",
+        "name": "Reload and refill process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "de9b638f.b04d8",
+            "e22f4de7.3ae3d",
+            "9549fe0c.25eb9"
+        ],
+        "x": 34,
+        "y": 539
+    },
+    {
+        "id": "9ac894a5.db5de8",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Add ammo process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "2cb8c386.44bb3c"
+        ],
+        "x": 734,
+        "y": 1359,
+        "w": 192,
+        "h": 82
+    },
+    {
+        "id": "becd5011.cfb4e",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Initialize/reinitialize weapon",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b8a9bd74.d447b",
+            "b58fed6c.d24d8",
+            "d15fcad2.444318",
+            "1a4453c1.0086dc"
+        ],
+        "x": 454,
+        "y": 59,
+        "w": 812,
+        "h": 142
+    },
+    {
+        "id": "8cb47713.65eef8",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Get status weapon",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "b35ef910.ea1048"
+        ],
+        "x": 734,
+        "y": 559,
+        "w": 192,
+        "h": 82
+    },
+    {
+        "id": "9caa6bb0.4d98d8",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Reload process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "32eff6cf.82188a",
+            "64fa51bd.f8b06",
+            "7c1e8e5e.ed00b",
+            "c310e86e.3f3858"
+        ],
+        "x": 734,
+        "y": 1059,
+        "w": 852,
+        "h": 122
+    },
+    {
+        "id": "9b3ce88c.3274d8",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Abort reload",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "701381aa.c3727",
+            "a6a57321.24d5a"
+        ],
+        "x": 734,
+        "y": 1219,
+        "w": 312,
+        "h": 122
+    },
+    {
+        "id": "2c260a0f.525076",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Shooting process",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "ce43a9b4.89c0f8",
+            "eb7dbbd0.897778",
+            "25b6e078.4ad55",
+            "b58c5fe7.cbc38",
+            "42f6a537.88238c",
+            "5e88b8ce.1d8d38",
+            "6946d319.154c2c",
+            "f1e648cc.f00398",
+            "b200d771.312068",
+            "3d95e358.7adf4c",
+            "c599c5f.54f1a38",
+            "d39f3dae.82b67"
+        ],
+        "x": 734,
+        "y": 759,
+        "w": 1392,
+        "h": 282
+    },
+    {
+        "id": "630563e1.c9cacc",
+        "type": "group",
+        "z": "d53ff5ad.362298",
+        "name": "Cycle selector",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "23130005.8a14"
+        ],
+        "x": 734,
+        "y": 659,
+        "w": 212,
+        "h": 82
+    },
+    {
+        "id": "cc6e3a1c.39bae8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "ec19520c.3da12",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "9732ec7d.720b",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "ec19520c.3da12",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "cd10c93e.b4e7d8",
+        "type": "inject",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize player and pistol",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 270,
+        "y": 40,
+        "wires": [
+            [
+                "d7579d35.0c386",
+                "98fac7f.fe21738"
+            ]
+        ]
+    },
+    {
+        "id": "d7579d35.0c386",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize player object",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "player",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "player.life",
+                "pt": "flow",
+                "to": "100",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "player.ID",
+                "pt": "flow",
+                "to": "ID",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "player.type",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "player.teamID",
+                "pt": "flow",
+                "to": "TEAM_ID",
+                "tot": "env"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 60,
+        "wires": [
+            [
+                "38771853.3148c8"
+            ]
+        ]
+    },
+    {
+        "id": "9515895a.048d18",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "name": "Add or substract life",
+        "func": "var possibleLife = flow.get(\"player.life\") + msg.payload;\n\nif (possibleLife < 0){\n    flow.set(\"player.life\", 0);\n    return;\n}\nflow.set(\"player.life\", possibleLife);\nreturn;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "8f867d98.2e336",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "1bde8982.2d5936",
+        "name": "Set player ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "player.ID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 210,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "34f589ca.b637b6",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "1bde8982.2d5936",
+        "name": "Set team ID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "player.teamID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 200,
+        "y": 840,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8d61be0f.da348",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "name": "Redirect according msg.topic",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "initialize",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "hit",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "fire",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "reload",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "refill",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "status",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 6,
+        "x": 260,
+        "y": 120,
+        "wires": [
+            [
+                "d7579d35.0c386",
+                "98fac7f.fe21738"
+            ],
+            [
+                "9515895a.048d18"
+            ],
+            [
+                "4cdc72fe.cb02cc"
+            ],
+            [
+                "9549fe0c.25eb9"
+            ],
+            [
+                "de9b638f.b04d8"
+            ],
+            [
+                "1f9b3479.2fd2dc"
+            ]
+        ]
+    },
+    {
+        "id": "f61f3c91.6c85d",
+        "type": "subflow:53a5d437.78ad4c",
+        "z": "2a6acf5c.4cd72",
+        "d": true,
+        "name": "",
+        "env": [
+            {
+                "name": "MAX_CAPACITY",
+                "value": "100",
+                "type": "num"
+            },
+            {
+                "name": "pistolDamage",
+                "value": "",
+                "type": "num"
+            },
+            {
+                "name": "maxPerMagazine",
+                "value": "",
+                "type": "num"
+            }
+        ],
+        "x": 450,
+        "y": 180,
+        "wires": [
+            [
+                "e974c45e.0f18f8"
+            ],
+            [
+                "30f99277.99122e"
+            ]
+        ]
+    },
+    {
+        "id": "e974c45e.0f18f8",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Fire",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "c0307ab2.7556d8",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Player ID, team ID, type of gun.",
+        "info": "",
+        "x": 950,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "5e088be.662c974",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Build message",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.playerID",
+                "pt": "msg",
+                "to": "player.ID",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "payload.teamID",
+                "pt": "msg",
+                "to": "player.teamID",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "payload.weaponType",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "98fac7f.fe21738",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Initialize pistol",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "pistol",
+                "pt": "flow"
+            },
+            {
+                "t": "set",
+                "p": "pistol.damage",
+                "pt": "flow",
+                "to": "PISTOL_DAMAGE",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "pistol.inMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.outOfMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "pistol.maxPerMagazine",
+                "pt": "flow",
+                "to": "MAX_PER_MAGAZINE",
+                "tot": "env"
+            },
+            {
+                "t": "set",
+                "p": "pistol.maxCapacity",
+                "pt": "flow",
+                "to": "MAX_CAPACITY",
+                "tot": "env"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 20,
+        "wires": [
+            [
+                "5d13a153.0f116"
+            ]
+        ]
+    },
+    {
+        "id": "3ff1cf96.f69da",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Rate or cooldown",
+        "info": "",
+        "x": 300,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "95dd4262.9e821",
+        "type": "debug",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Player is dead",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 320,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "33cb6943.3cca96",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Is player alive?",
+        "property": "player.life",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 320,
+        "y": 400,
+        "wires": [
+            [
+                "f05619b5.440d78"
+            ],
+            [
+                "95dd4262.9e821"
+            ]
+        ]
+    },
+    {
+        "id": "1907545c.ab151c",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Shoot and substract one bullet",
+        "func": "var newInMagazine = flow.get(\"pistol.inMagazine\") - 1;\nflow.set(\"pistol.inMagazine\", newInMagazine);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 870,
+        "y": 280,
+        "wires": [
+            [
+                "5e088be.662c974"
+            ]
+        ]
+    },
+    {
+        "id": "f05619b5.440d78",
+        "type": "switch",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Are there bullets in magazine?",
+        "property": "pistol.inMagazine",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 360,
+        "wires": [
+            [
+                "1907545c.ab151c"
+            ],
+            [
+                "788b9b24.3cb914"
+            ]
+        ]
+    },
+    {
+        "id": "788b9b24.3cb914",
+        "type": "debug",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "Magazine is empty",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 570,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "4cdc72fe.cb02cc",
+        "type": "delay",
+        "z": "53a5d437.78ad4c",
+        "g": "9b36f037.2f8ea",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "x": 210,
+        "y": 340,
+        "wires": [
+            [
+                "33cb6943.3cca96"
+            ]
+        ]
+    },
+    {
+        "id": "32f492e3.17362e",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "fire",
+        "payload": "",
+        "payloadType": "date",
+        "x": 270,
+        "y": 180,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "30f99277.99122e",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 670,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "38771853.3148c8",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Output player status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "player",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "player",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5d13a153.0f116",
+        "type": "change",
+        "z": "53a5d437.78ad4c",
+        "name": "Output pistol status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "flow"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "pistol",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 790,
+        "y": 20,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "de9b638f.b04d8",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "Refill",
+        "func": "var possibleNewQuantity = flow.get(\"pistol.outOfMagazine\") + msg.payload;\n\nif (possibleNewQuantity > env.get(\"MAX_CAPACITY\")){\n    flow.set(\"pistol.outOfMagazine\", env.get(\"MAX_CAPACITY\"));\n    return;\n}\nelse {\n    flow.set(\"pistol.outOfMagazine\", possibleNewQuantity);\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 190,
+        "y": 620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e22f4de7.3ae3d",
+        "type": "comment",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "NOTE: Incoming refill bullets in excess are \"lost\" if maxCapacity is reached (nothing is checking how many bullets there are before refill)",
+        "info": "",
+        "x": 510,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9549fe0c.25eb9",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "g": "8cb898f3.0a9998",
+        "name": "Reload",
+        "func": "var maxPerMagazine = env.get(\"MAX_PER_MAGAZINE\");\nvar inMagazine = flow.get(\"pistol.inMagazine\");\nvar outOfMagazine = flow.get(\"pistol.outOfMagazine\");\n\nvar freeSpace = maxPerMagazine - inMagazine;\n\nif (freeSpace === 0 || outOfMagazine === 0){\n    // Do nothing in this case.\n    return msg;\n}\nelse if (freeSpace <= outOfMagazine){\n    inMagazine = inMagazine + freeSpace;\n    outOfMagazine = outOfMagazine - freeSpace;\n}\nelse if (freeSpace > outOfMagazine){\n    inMagazine = inMagazine + outOfMagazine;\n    outOfMagazine = 0;\n}\nflow.set(\"pistol.inMagazine\", inMagazine);\nflow.set(\"pistol.outOfMagazine\", outOfMagazine);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 200,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c85fb8f9.bf9f98",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "reload",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 240,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "71af4519.6c29cc",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "refill",
+        "payload": "5",
+        "payloadType": "num",
+        "x": 220,
+        "y": 300,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "54e45bda.d51154",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "status",
+        "payload": "",
+        "payloadType": "date",
+        "x": 250,
+        "y": 360,
+        "wires": [
+            [
+                "f61f3c91.6c85d"
+            ]
+        ]
+    },
+    {
+        "id": "1f9b3479.2fd2dc",
+        "type": "function",
+        "z": "53a5d437.78ad4c",
+        "name": "Query player status",
+        "func": "var msg1 = { payload : flow.get(\"player\")};\nvar msg2 = { payload : flow.get(\"pistol\")};\nreturn [ [ msg1, msg2 ] ];",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 650,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dce5fe3a.5a063",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "name": "Check weapon ID",
+        "property": "weapon.ID",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "WEAPON_ID",
+                "vt": "env"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "52802418.e6f77c"
+            ]
+        ]
+    },
+    {
+        "id": "8b378741.cc5038",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "name": "Check if message is intended for this node",
+        "info": "",
+        "x": 360,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "52802418.e6f77c",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "name": "Operation to perform",
+        "property": "weapon",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "reinitialize",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "getStatus",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "cycleSelector",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "pullTrigger",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "releaseTrigger",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "startReload",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "abortReload",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "removeAmmo",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "addAmmo",
+                "vt": "str"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 9,
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "d15fcad2.444318"
+            ],
+            [
+                "b35ef910.ea1048"
+            ],
+            [
+                "23130005.8a14"
+            ],
+            [
+                "b200d771.312068"
+            ],
+            [
+                "3d95e358.7adf4c"
+            ],
+            [
+                "c310e86e.3f3858"
+            ],
+            [
+                "701381aa.c3727"
+            ],
+            [
+                "269efc3d.1914b4"
+            ],
+            [
+                "2cb8c386.44bb3c"
+            ]
+        ]
+    },
+    {
+        "id": "525c30e0.1898c",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "name": "Reload weapon realistic and easy",
+        "info": "",
+        "x": 170,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "6946d319.154c2c",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Manage rate",
+        "info": "",
+        "x": 1370,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b8a9bd74.d447b",
+        "type": "inject",
+        "z": "d53ff5ad.362298",
+        "g": "becd5011.cfb4e",
+        "name": "Initialize variables",
+        "props": [
+            {
+                "p": "delay",
+                "v": "TIME_TO_RELOAD",
+                "vt": "env"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 590,
+        "y": 100,
+        "wires": [
+            [
+                "d15fcad2.444318",
+                "1a4453c1.0086dc",
+                "32eff6cf.82188a"
+            ]
+        ]
+    },
+    {
+        "id": "2cb8c386.44bb3c",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "9ac894a5.db5de8",
+        "name": "Add ammo",
+        "func": "var bulletsOutOfMagazine = flow.get(\"weapon.bulletsOutOfMagazine\");\n\nflow.set(\"weapon.bulletsOutOfMagazine\", bulletsOutOfMagazine += msg.payload);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 830,
+        "y": 1400,
+        "wires": [
+            [
+                "b35ef910.ea1048"
+            ]
+        ]
+    },
+    {
+        "id": "3ff13699.ffba5a",
+        "type": "subflow:d53ff5ad.362298",
+        "z": "2a6acf5c.4cd72",
+        "name": "Pistol",
+        "env": [
+            {
+                "name": "WEAPON_ID",
+                "value": "1",
+                "type": "num"
+            },
+            {
+                "name": "MAX_PER_MAGAZINE",
+                "value": "10",
+                "type": "num"
+            }
+        ],
+        "x": 840,
+        "y": 580,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bec55263.d5089",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Reinitialize",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.reinitialize",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 630,
+        "y": 640,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "b58fed6c.d24d8",
+        "type": "debug",
+        "z": "d53ff5ad.362298",
+        "g": "becd5011.cfb4e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1170,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ab9613a6.68133",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Get status",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.getStatus",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 640,
+        "y": 700,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "b35ef910.ea1048",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "8cb47713.65eef8",
+        "name": "Get status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "weapon",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 600,
+        "wires": [
+            [
+                "b58fed6c.d24d8"
+            ]
+        ]
+    },
+    {
+        "id": "64fa51bd.f8b06",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "9caa6bb0.4d98d8",
+        "name": "Reload easy method",
+        "func": "var bulletsOutOfMagazine = flow.get(\"weapon.bulletsOutOfMagazine\");\nvar bulletsInMagazine = flow.get(\"weapon.bulletsInMagazine\");\nvar maxPerMagazine = env.get(\"MAX_PER_MAGAZINE\");\nvar difference = maxPerMagazine - bulletsInMagazine;\n\nif (bulletsOutOfMagazine >= difference){\n    bulletsInMagazine += difference;\n    bulletsOutOfMagazine -= difference;\n}\nelse if (bulletsOutOfMagazine < difference){\n    bulletsInMagazine += bulletsOutOfMagazine;\n    bulletsOutOfMagazine = 0;\n}\n\nflow.set(\"weapon.bulletsOutOfMagazine\", bulletsOutOfMagazine);\nflow.set(\"weapon.bulletsInMagazine\", bulletsInMagazine);\n\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1460,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6a57321.24d5a",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "g": "9b3ce88c.3274d8",
+        "name": "If releasing button, stop reloading",
+        "info": "",
+        "x": 890,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "269efc3d.1914b4",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "name": "Test remove ammo magazine",
+        "func": "var bulletsInMagazine = flow.get(\"weapon.bulletsInMagazine\");\n\nbulletsInMagazine -= msg.payload;\n\nflow.set(\"weapon.bulletsInMagazine\", bulletsInMagazine)\n\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 360,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47df7f81.c6d2e",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Add ammo",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.addAmmo",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "5",
+        "payloadType": "num",
+        "x": 640,
+        "y": 740,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "1bf792eb.66bfcd",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Remove ammo mag",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.removeAmmo",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "86e09363.a19d5",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Reload",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.startReload",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "32eff6cf.82188a",
+        "type": "delay",
+        "z": "d53ff5ad.362298",
+        "g": "9caa6bb0.4d98d8",
+        "name": "Delay reloading",
+        "pauseType": "delayv",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1180,
+        "y": 1140,
+        "wires": [
+            [
+                "64fa51bd.f8b06",
+                "b58fed6c.d24d8",
+                "42f6a537.88238c"
+            ]
+        ]
+    },
+    {
+        "id": "7c1e8e5e.ed00b",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "g": "9caa6bb0.4d98d8",
+        "name": "Loading takes a moment",
+        "info": "",
+        "x": 1190,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "701381aa.c3727",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "9b3ce88c.3274d8",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 1300,
+        "wires": [
+            [
+                "32eff6cf.82188a",
+                "42f6a537.88238c"
+            ]
+        ]
+    },
+    {
+        "id": "29e4e430.22f3bc",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Abort Reloasd",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.abortReload",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 860,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "8639934b.dc9dd",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "name": "Change description subflow",
+        "info": "",
+        "x": 200,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "ce43a9b4.89c0f8",
+        "type": "comment",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Inhibit shooting while reloading",
+        "info": "",
+        "x": 1070,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "5e88b8ce.1d8d38",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Check if magazine is empty",
+        "property": "weapon.bulletsInMagazine",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 1660,
+        "y": 900,
+        "wires": [
+            [
+                "eb7dbbd0.897778"
+            ],
+            []
+        ],
+        "outputLabels": [
+            "Not empty",
+            "Empty"
+        ]
+    },
+    {
+        "id": "eb7dbbd0.897778",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Remove 1 bullet from magazine",
+        "func": "var bulletsInMagazine = flow.get(\"weapon.bulletsInMagazine\");\n\nbulletsInMagazine -- ;\n\nflow.set(\"weapon.bulletsInMagazine\", bulletsInMagazine)\n\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1970,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25b6e078.4ad55",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Check if we are reloading",
+        "property": "weapon.isReloading",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1070,
+        "y": 900,
+        "wires": [
+            [
+                "c599c5f.54f1a38"
+            ]
+        ],
+        "outputLabels": [
+            "Not reloading"
+        ]
+    },
+    {
+        "id": "b58c5fe7.cbc38",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Activate reloading status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.isReloading",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "42f6a537.88238c",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Deactivate reloading status",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.isReloading",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c310e86e.3f3858",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "g": "9caa6bb0.4d98d8",
+        "name": "Check presence of spare bullets",
+        "property": "weapon.bulletsOutOfMagazine",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 890,
+        "y": 1140,
+        "wires": [
+            [
+                "32eff6cf.82188a",
+                "b58c5fe7.cbc38"
+            ],
+            []
+        ],
+        "outputLabels": [
+            "Not empty",
+            "Empty"
+        ]
+    },
+    {
+        "id": "f1e648cc.f00398",
+        "type": "trigger",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-250",
+        "extend": false,
+        "overrideDelay": true,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1380,
+        "y": 900,
+        "wires": [
+            [
+                "5e88b8ce.1d8d38",
+                "d39f3dae.82b67"
+            ]
+        ]
+    },
+    {
+        "id": "b200d771.312068",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Pull trigger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.isTriggerPulled",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 900,
+        "wires": [
+            [
+                "25b6e078.4ad55"
+            ]
+        ]
+    },
+    {
+        "id": "3d95e358.7adf4c",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Release trigger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.isTriggerPulled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "reset",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 1000,
+        "wires": [
+            [
+                "f1e648cc.f00398",
+                "d39f3dae.82b67"
+            ]
+        ]
+    },
+    {
+        "id": "d15fcad2.444318",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "g": "becd5011.cfb4e",
+        "name": "Initialize weapon",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.bulletsOutOfMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "weapon.bulletsInMagazine",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "weapon.isTriggerPulled",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "weapon.isReloading",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "weapon.selectorPosition",
+                "pt": "flow",
+                "to": "semi",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "weapon",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 100,
+        "wires": [
+            [
+                "b58fed6c.d24d8"
+            ]
+        ]
+    },
+    {
+        "id": "23130005.8a14",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "630563e1.c9cacc",
+        "name": "Cycle selector",
+        "func": "var weaponType = get.env(\"WEAPON_TYPE\");\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\n\nswitch(weaponType) {\n    case \"semi\":\n        return msg;\n    case \"burst\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n    case \"auto\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else if (selectorPosition == \"burst\") {\n            selectorPosition = \"auto\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n}\nflow.set(\"weapon.selectorPosition\", selectorPosition);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 840,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c599c5f.54f1a38",
+        "type": "switch",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Selector position",
+        "property": "weapon.selectorPosition",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "semi",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1320,
+        "y": 800,
+        "wires": [
+            [
+                "5e88b8ce.1d8d38"
+            ],
+            [
+                "f1e648cc.f00398"
+            ]
+        ]
+    },
+    {
+        "id": "d39f3dae.82b67",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "2c260a0f.525076",
+        "name": "Limit burst rounds",
+        "func": "//Init counter in Setup tab\n\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\nvar counter = context.get(\"counter\");\n\nif (typeof msg.reset != \"undefined\") {  //Reset counter also if release trigger for example\n    counter = 0;\n    context.set(\"counter\", counter);\n    msg.reset = {};\n    return msg;\n}\n\nif (selectorPosition == \"burst\"){\n    var burstRounds = get.env(\"BURST_ROUNDS\");\n    \n    if (counter >= burstRounds){\n        counter = 0;\n        context.set(\"counter\", counter);\n        msg.reset = {};\n        return msg;\n    }\n    else {\n        counter ++;\n        context.set(\"counter\", counter);\n    }\n}\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "if (context.get(\"counter\") === undefined) {\n    context.set(\"counter\", 0)\n}",
+        "finalize": "",
+        "x": 1370,
+        "y": 960,
+        "wires": [
+            [
+                "f1e648cc.f00398"
+            ]
+        ]
+    },
+    {
+        "id": "1a4453c1.0086dc",
+        "type": "function",
+        "z": "d53ff5ad.362298",
+        "g": "becd5011.cfb4e",
+        "name": "Initialize rounds per minute",
+        "func": "var roundsPerMinute = env.get(\"ROUNDS_PER_MINUTE\");\n\nmsg.delay = 1 / ((roundsPerMinute / 60) / 1000); //We must transform to milliseconds\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 880,
+        "y": 160,
+        "wires": [
+            [
+                "f1e648cc.f00398"
+            ]
+        ]
+    },
+    {
+        "id": "f5ba566d.662e48",
+        "type": "play audio",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "voice": "4",
+        "x": 1150,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "33b49d6.881f262",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Shooting",
+        "payloadType": "str",
+        "x": 510,
+        "y": 500,
+        "wires": [
+            [
+                "e02cee5c.47795"
+            ]
+        ]
+    },
+    {
+        "id": "e02cee5c.47795",
+        "type": "trigger",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-60",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 830,
+        "y": 460,
+        "wires": [
+            [
+                "f5ba566d.662e48"
+            ]
+        ]
+    },
+    {
+        "id": "483cbc04.b2c084",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "reset",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 500,
+        "y": 560,
+        "wires": [
+            [
+                "e02cee5c.47795"
+            ]
+        ]
+    }
+]
