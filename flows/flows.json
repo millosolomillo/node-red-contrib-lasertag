@@ -3,6 +3,13 @@
         "id": "2a6acf5c.4cd72",
         "type": "tab",
         "label": "Simulator",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "5b3f11d2.6b8e5",
+        "type": "tab",
+        "label": "Display",
         "disabled": false,
         "info": ""
     },
@@ -289,7 +296,12 @@
         "status": {
             "x": 215,
             "y": 30,
-            "wires": []
+            "wires": [
+                {
+                    "id": "d8959a4b.70ca28",
+                    "port": 0
+                }
+            ]
         }
     },
     {
@@ -360,9 +372,7 @@
             "2cb8c386.44bb3c"
         ],
         "x": 734,
-        "y": 1359,
-        "w": 192,
-        "h": 82
+        "y": 1359
     },
     {
         "id": "becd5011.cfb4e",
@@ -379,9 +389,7 @@
             "1a4453c1.0086dc"
         ],
         "x": 454,
-        "y": 59,
-        "w": 812,
-        "h": 142
+        "y": 59
     },
     {
         "id": "8cb47713.65eef8",
@@ -395,9 +403,7 @@
             "b35ef910.ea1048"
         ],
         "x": 734,
-        "y": 559,
-        "w": 192,
-        "h": 82
+        "y": 559
     },
     {
         "id": "9caa6bb0.4d98d8",
@@ -414,9 +420,7 @@
             "c310e86e.3f3858"
         ],
         "x": 734,
-        "y": 1059,
-        "w": 852,
-        "h": 122
+        "y": 1059
     },
     {
         "id": "9b3ce88c.3274d8",
@@ -431,9 +435,7 @@
             "a6a57321.24d5a"
         ],
         "x": 734,
-        "y": 1219,
-        "w": 312,
-        "h": 122
+        "y": 1219
     },
     {
         "id": "2c260a0f.525076",
@@ -458,9 +460,7 @@
             "d39f3dae.82b67"
         ],
         "x": 734,
-        "y": 759,
-        "w": 1392,
-        "h": 282
+        "y": 759
     },
     {
         "id": "630563e1.c9cacc",
@@ -474,9 +474,7 @@
             "23130005.8a14"
         ],
         "x": 734,
-        "y": 659,
-        "w": 212,
-        "h": 82
+        "y": 659
     },
     {
         "id": "cc6e3a1c.39bae8",
@@ -591,6 +589,52 @@
         "disp": true,
         "width": "6",
         "collapse": false
+    },
+    {
+        "id": "417cec3.8a76a14",
+        "type": "serial-port",
+        "serialport": "/dev/ttyS0",
+        "serialbaud": "4800",
+        "databits": "5",
+        "parity": "even",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "100",
+        "bin": "false",
+        "out": "time",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "347cbba3.0ba334",
+        "type": "serial-port",
+        "serialport": "/dev/ttyS0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "bc57cb34.90ef58",
+        "type": "oled-config",
+        "name": "",
+        "width": "128",
+        "height": "64",
+        "address": "0x60"
     },
     {
         "id": "cd10c93e.b4e7d8",
@@ -1540,6 +1584,7 @@
         "once": true,
         "onceDelay": 0.1,
         "topic": "",
+        "payloadType": "str",
         "x": 590,
         "y": 100,
         "wires": [
@@ -1573,6 +1618,7 @@
         "id": "3ff13699.ffba5a",
         "type": "subflow:d53ff5ad.362298",
         "z": "2a6acf5c.4cd72",
+        "d": true,
         "name": "Pistol",
         "env": [
             {
@@ -1582,12 +1628,22 @@
             },
             {
                 "name": "MAX_PER_MAGAZINE",
-                "value": "10",
+                "value": "20",
+                "type": "num"
+            },
+            {
+                "name": "WEAPON_TYPE",
+                "value": "auto",
+                "type": "str"
+            },
+            {
+                "name": "ROUNDS_PER_MINUTE",
+                "value": "20",
                 "type": "num"
             }
         ],
-        "x": 840,
-        "y": 580,
+        "x": 830,
+        "y": 540,
         "wires": [
             []
         ]
@@ -1614,6 +1670,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
+        "payloadType": "str",
         "x": 630,
         "y": 640,
         "wires": [
@@ -1767,7 +1824,7 @@
         "once": false,
         "onceDelay": 0.1,
         "topic": "",
-        "payload": "5",
+        "payload": "10",
         "payloadType": "num",
         "x": 640,
         "y": 740,
@@ -1912,7 +1969,7 @@
         "id": "29e4e430.22f3bc",
         "type": "inject",
         "z": "2a6acf5c.4cd72",
-        "name": "Abort Reloasd",
+        "name": "Abort Reload",
         "props": [
             {
                 "p": "weapon.ID",
@@ -1999,7 +2056,7 @@
         "z": "d53ff5ad.362298",
         "g": "2c260a0f.525076",
         "name": "Remove 1 bullet from magazine",
-        "func": "var bulletsInMagazine = flow.get(\"weapon.bulletsInMagazine\");\n\nbulletsInMagazine -- ;\n\nflow.set(\"weapon.bulletsInMagazine\", bulletsInMagazine)\n\nreturn;",
+        "func": "var bulletsInMagazine = flow.get(\"weapon.bulletsInMagazine\");\n\nbulletsInMagazine -- ;\n\nflow.set(\"weapon.bulletsInMagazine\", bulletsInMagazine)\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2007,7 +2064,9 @@
         "x": 1970,
         "y": 900,
         "wires": [
-            []
+            [
+                "fd3da69f.d7dac8"
+            ]
         ]
     },
     {
@@ -2134,7 +2193,7 @@
         "op2": "0",
         "op1type": "pay",
         "op2type": "str",
-        "duration": "-250",
+        "duration": "-180",
         "extend": false,
         "overrideDelay": true,
         "units": "ms",
@@ -2161,7 +2220,7 @@
             {
                 "t": "set",
                 "p": "weapon.isTriggerPulled",
-                "pt": "msg",
+                "pt": "flow",
                 "to": "true",
                 "tot": "bool"
             }
@@ -2189,7 +2248,7 @@
             {
                 "t": "set",
                 "p": "weapon.isTriggerPulled",
-                "pt": "msg",
+                "pt": "flow",
                 "to": "false",
                 "tot": "bool"
             },
@@ -2222,6 +2281,11 @@
         "g": "becd5011.cfb4e",
         "name": "Initialize weapon",
         "rules": [
+            {
+                "t": "delete",
+                "p": "weapon",
+                "pt": "flow"
+            },
             {
                 "t": "set",
                 "p": "weapon.bulletsOutOfMagazine",
@@ -2284,7 +2348,7 @@
         "z": "d53ff5ad.362298",
         "g": "630563e1.c9cacc",
         "name": "Cycle selector",
-        "func": "var weaponType = get.env(\"WEAPON_TYPE\");\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\n\nswitch(weaponType) {\n    case \"semi\":\n        return msg;\n    case \"burst\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n    case \"auto\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else if (selectorPosition == \"burst\") {\n            selectorPosition = \"auto\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n}\nflow.set(\"weapon.selectorPosition\", selectorPosition);\n\nreturn msg;",
+        "func": "var weaponType = env.get(\"WEAPON_TYPE\");\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\n\nswitch(weaponType) {\n    case \"semi\":\n        return msg;\n    case \"burst\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n    case \"auto\":\n        if (selectorPosition == \"semi\") {\n            selectorPosition = \"burst\";\n        }\n        else if (selectorPosition == \"burst\") {\n            selectorPosition = \"auto\";\n        }\n        else {\n            selectorPosition = \"semi\";\n        }\n        break;\n}\nflow.set(\"weapon.selectorPosition\", selectorPosition);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2333,7 +2397,7 @@
         "z": "d53ff5ad.362298",
         "g": "2c260a0f.525076",
         "name": "Limit burst rounds",
-        "func": "//Init counter in Setup tab\n\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\nvar counter = context.get(\"counter\");\n\nif (typeof msg.reset != \"undefined\") {  //Reset counter also if release trigger for example\n    counter = 0;\n    context.set(\"counter\", counter);\n    msg.reset = {};\n    return msg;\n}\n\nif (selectorPosition == \"burst\"){\n    var burstRounds = get.env(\"BURST_ROUNDS\");\n    \n    if (counter >= burstRounds){\n        counter = 0;\n        context.set(\"counter\", counter);\n        msg.reset = {};\n        return msg;\n    }\n    else {\n        counter ++;\n        context.set(\"counter\", counter);\n    }\n}\nreturn;",
+        "func": "//Init counter in Setup tab\n\nvar selectorPosition = flow.get(\"weapon.selectorPosition\");\nvar counter = context.get(\"counter\");\n\nif (typeof msg.reset != \"undefined\") {  //Reset counter also if release trigger for example\n    counter = 0;\n    context.set(\"counter\", counter);\n    msg.reset = {};\n    return msg;\n}\n\nif (selectorPosition == \"burst\"){\n    var burstRounds = env.get(\"BURST_ROUNDS\");\n    \n    if (counter >= burstRounds){\n        counter = 0;\n        context.set(\"counter\", counter);\n        msg.reset = {};\n        return msg;\n    }\n    else {\n        counter ++;\n        context.set(\"counter\", counter);\n    }\n}\nreturn;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "if (context.get(\"counter\") === undefined) {\n    context.set(\"counter\", 0)\n}",
@@ -2352,7 +2416,7 @@
         "z": "d53ff5ad.362298",
         "g": "becd5011.cfb4e",
         "name": "Initialize rounds per minute",
-        "func": "var roundsPerMinute = env.get(\"ROUNDS_PER_MINUTE\");\n\nmsg.delay = 1 / ((roundsPerMinute / 60) / 1000); //We must transform to milliseconds\n\nreturn msg;",
+        "func": "var roundsPerMinute = env.get(\"ROUNDS_PER_MINUTE\");\n\nmsg.delay = 1 / ((roundsPerMinute / 60) / 1000); //We must transform to milliseconds\nmsg.reset = \"\";\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2451,6 +2515,957 @@
         "wires": [
             [
                 "e02cee5c.47795"
+            ]
+        ]
+    },
+    {
+        "id": "2f410a4d.abf4f6",
+        "type": "exec",
+        "z": "2a6acf5c.4cd72",
+        "command": "aplay /home/pi/sounds/bell.wav",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1510,
+        "y": 740,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c50b49dd.77ac68",
+        "type": "rpi-gpio in",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "pin": "16",
+        "intype": "tri",
+        "debounce": "25",
+        "read": false,
+        "x": 190,
+        "y": 980,
+        "wires": [
+            [
+                "24087d36.5043d2",
+                "7eb68a66.738474"
+            ]
+        ]
+    },
+    {
+        "id": "24087d36.5043d2",
+        "type": "switch",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 960,
+        "wires": [
+            [
+                "d3e0b86b.aae648"
+            ],
+            [
+                "3a6a9f41.5905f"
+            ]
+        ]
+    },
+    {
+        "id": "f245b9e7.688648",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1520,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "4319aefb.54aa5",
+        "type": "inject",
+        "z": "d53ff5ad.362298",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": " These excellant intentions were strengthed when he enterd the Father Superior's diniing-room, though, stricttly speakin, it was not a dining-room, for the Father Superior had only two rooms alltogether; they were, however, much larger and more comfortable than Father Zossima's. But tehre was was no great luxury about the furnishng of these rooms eithar. The furniture was of mohogany, covered with leather, in the old-fashionned style of 1820 the floor was not even stained, but evreything was shining with cleanlyness, and there were many chioce flowers in the windows; the most sumptuous thing in the room at the moment was, of course, the beatifuly decorated table. The cloth was clean, the service shone; there were three kinds of well",
+        "payloadType": "str",
+        "x": 130,
+        "y": 220,
+        "wires": [
+            [
+                "2113eaaa.0475d6"
+            ]
+        ]
+    },
+    {
+        "id": "d8959a4b.70ca28",
+        "type": "template",
+        "z": "d53ff5ad.362298",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{payload.bulletsInMagazine}}/{{payload.bulletsOutOfMagazine}} - \nTrigger pulled: {{payload.isTriggerPulled}} - \nReloading: {{payload.isReloading}} - \nSelector: {{payload.selectorPosition}}",
+        "output": "str",
+        "x": 500,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2113eaaa.0475d6",
+        "type": "change",
+        "z": "d53ff5ad.362298",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "weapon",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 220,
+        "wires": [
+            [
+                "d8959a4b.70ca28"
+            ]
+        ]
+    },
+    {
+        "id": "f1b0ea70.9f3d98",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Cycle selector",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.cycleSelector",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 1060,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "fd3da69f.d7dac8",
+        "type": "exec",
+        "z": "d53ff5ad.362298",
+        "command": "aplay /home/pi/sounds/rifle.wav --test-nowait -d 1",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 2370,
+        "y": 900,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "d3e0b86b.aae648",
+        "type": "change",
+        "z": "2a6acf5c.4cd72",
+        "name": "Pull trigger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.ID",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "weapon.pullTrigger",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 920,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "3a6a9f41.5905f",
+        "type": "change",
+        "z": "2a6acf5c.4cd72",
+        "name": "Release trigger",
+        "rules": [
+            {
+                "t": "set",
+                "p": "weapon.ID",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "weapon.releaseTrigger",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 980,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "c9fd1698.6a8478",
+        "type": "exec",
+        "z": "2a6acf5c.4cd72",
+        "command": "aplay /home/pi/sounds/rifle.wav",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1510,
+        "y": 840,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "36c7bae0.1dd7d6",
+        "type": "rpi-gpio out",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "pin": "10",
+        "set": true,
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "x": 1200,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "7eb68a66.738474",
+        "type": "function",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "func": "if (msg.payload == 1) msg.payload = 0;\nelse if (msg.payload == 0) msg.payload = 1;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 560,
+        "y": 1160,
+        "wires": [
+            [
+                "a486b70a.c396a8"
+            ]
+        ]
+    },
+    {
+        "id": "76fcfa6b.3c13b4",
+        "type": "trigger",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "str",
+        "op2type": "str",
+        "duration": "5",
+        "extend": false,
+        "overrideDelay": false,
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 1210,
+        "y": 1140,
+        "wires": [
+            [
+                "36c7bae0.1dd7d6"
+            ]
+        ]
+    },
+    {
+        "id": "a486b70a.c396a8",
+        "type": "switch",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 750,
+        "y": 1160,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "748367c.62f1098",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "0.070",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 770,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "491f1a6e.3d1154",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 1070,
+        "y": 900,
+        "wires": [
+            [
+                "c9fd1698.6a8478",
+                "2f410a4d.abf4f6"
+            ]
+        ]
+    },
+    {
+        "id": "e87e7554.efb1c8",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 470,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "75f2862.1217778",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "hola",
+        "payloadType": "str",
+        "x": 700,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b46381d4.d8d9a",
+        "type": "String",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Update bullets counter",
+        "display": "bc57cb34.90ef58",
+        "x": 1300,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "df4a3feb.44a4d",
+        "type": "comment",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Weapon mode",
+        "info": "",
+        "x": 940,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "487e1e22.d4fef",
+        "type": "comment",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Timed screen /dark clear",
+        "info": "",
+        "x": 490,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "b7116fe1.cffa9",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "28/090",
+        "payloadType": "str",
+        "x": 430,
+        "y": 300,
+        "wires": [
+            [
+                "ef879356.d51d2"
+            ]
+        ]
+    },
+    {
+        "id": "ef879356.d51d2",
+        "type": "change",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Set size and position of bullets text",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.text",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.size",
+                "pt": "msg",
+                "to": "4",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.x",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.y",
+                "pt": "msg",
+                "to": "30",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 300,
+        "wires": [
+            [
+                "b46381d4.d8d9a"
+            ]
+        ]
+    },
+    {
+        "id": "f04137a9.2ec048",
+        "type": "comment",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Send text as XX/XXX",
+        "info": "",
+        "x": 620,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "a5ace760.13b0f8",
+        "type": "comment",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Incoming values should be absolute",
+        "info": "",
+        "x": 200,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a7427c9f.90bf6",
+        "type": "FillRectangle",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "display": "bc57cb34.90ef58",
+        "x": 1330,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "2dcd525c.ee854e",
+        "type": "change",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Add life bar",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "number",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.w",
+                "pt": "msg",
+                "to": "$round((number / 100) * 128)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.x",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.y",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.h",
+                "pt": "msg",
+                "to": "20",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.color",
+                "pt": "msg",
+                "to": "1",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1050,
+        "y": 140,
+        "wires": [
+            [
+                "a7427c9f.90bf6"
+            ]
+        ]
+    },
+    {
+        "id": "5369b3d0.46676c",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "80",
+        "payloadType": "num",
+        "x": 150,
+        "y": 140,
+        "wires": [
+            [
+                "b1cd7e2f.0240b"
+            ]
+        ]
+    },
+    {
+        "id": "5dd2cec.d76023",
+        "type": "change",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Substract life bar",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "number",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.x",
+                "pt": "msg",
+                "to": "$round((number / 100) * 128)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.y",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.w",
+                "pt": "msg",
+                "to": "128 - $round((number / 100) * 128)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.h",
+                "pt": "msg",
+                "to": "20",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "payload.color",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1030,
+        "y": 180,
+        "wires": [
+            [
+                "a7427c9f.90bf6"
+            ]
+        ]
+    },
+    {
+        "id": "df137956.6414c8",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "90",
+        "payloadType": "num",
+        "x": 170,
+        "y": 120,
+        "wires": [
+            [
+                "b1cd7e2f.0240b"
+            ]
+        ]
+    },
+    {
+        "id": "17273869.041ed8",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "100",
+        "payloadType": "num",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "b1cd7e2f.0240b"
+            ]
+        ]
+    },
+    {
+        "id": "42d5ae85.842a2",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "b1cd7e2f.0240b"
+            ]
+        ]
+    },
+    {
+        "id": "768e013a.b881e",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "50",
+        "payloadType": "num",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            [
+                "b1cd7e2f.0240b"
+            ]
+        ]
+    },
+    {
+        "id": "b1cd7e2f.0240b",
+        "type": "switch",
+        "z": "5b3f11d2.6b8e5",
+        "name": "Check if new life is higher or lower than actual",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gt",
+                "v": "actualLife",
+                "vt": "flow"
+            },
+            {
+                "t": "lt",
+                "v": "actualLife",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 640,
+        "y": 120,
+        "wires": [
+            [
+                "2dcd525c.ee854e",
+                "5a489209.a2c18c"
+            ],
+            [
+                "5dd2cec.d76023",
+                "5a489209.a2c18c"
+            ]
+        ]
+    },
+    {
+        "id": "5a489209.a2c18c",
+        "type": "change",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "actualLife",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e6cab9.043b658",
+        "type": "inject",
+        "z": "5b3f11d2.6b8e5",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "0",
+        "payloadType": "num",
+        "x": 580,
+        "y": 240,
+        "wires": [
+            [
+                "5a489209.a2c18c"
             ]
         ]
     }
