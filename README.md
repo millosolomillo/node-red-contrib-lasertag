@@ -58,6 +58,7 @@ Extra ideas:
 - Respawn and reload fixed columns.
 - Medkit.
 
-Biggest problem to overcome (at least for me):
-- LIRC for infrared commands, pain in the ass. I can only send predefined characters.
-  I cannot or do not know how to stream data. So the solution I see is build my message and send the characters independently, the consequence is that I will have to build a checksum system to avoid corrupt data (could happen if 2 players shoot at the same time or from the sunlight?).
+~~Biggest problem to overcome (at least for me):~~
+~~- LIRC for infrared commands, pain in the ass. I can only send predefined characters.
+  I cannot or do not know how to stream data. So the solution I see is build my message and send the characters independently, the consequence is that I will have to build a checksum system to avoid corrupt data (could happen if 2 players shoot at the same time or from the sunlight?).~~
+- LIRC not needed anymore: Infrared commands will be sent through a NE555 infrared emitter connected to the serial Tx pin and received through a Vishay TSDP34138 receiver connected to the Rx pin.
