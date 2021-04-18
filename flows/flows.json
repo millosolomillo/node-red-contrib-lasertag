@@ -4457,20 +4457,10 @@
         "id": "4054590e.8b2a18",
         "type": "comment",
         "z": "5b3f11d2.6b8e5",
-        "name": "Send life text as a text from 0 to 100",
+        "name": "Send life text as number from 0 to 100",
         "info": "",
-        "x": 380,
+        "x": 390,
         "y": 360,
-        "wires": []
-    },
-    {
-        "id": "c1cdffe0.97306",
-        "type": "comment",
-        "z": "5b3f11d2.6b8e5",
-        "name": "Trigger timer when life and or bullets?",
-        "info": "",
-        "x": 230,
-        "y": 800,
         "wires": []
     },
     {
@@ -5058,7 +5048,7 @@
             "dc857a21.da29f8",
             "36c2a00a.98ff2"
         ],
-        "x": 365,
+        "x": 415,
         "y": 1300,
         "wires": [
             [
