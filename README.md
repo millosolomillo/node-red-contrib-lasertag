@@ -66,3 +66,10 @@ Extra ideas:
 ~~- LIRC for infrared commands, pain in the ass. I can only send predefined characters.
   I cannot or do not know how to stream data. So the solution I see is build my message and send the characters independently, the consequence is that I will have to build a checksum system to avoid corrupt data (could happen if 2 players shoot at the same time or from the sunlight?).~~
 - LIRC not needed anymore: Infrared commands will be sent through a NE555 infrared emitter connected to the serial Tx pin and received through a Vishay TSDP34138 receiver connected to the Rx pin.
+ 
+ 
+If you find this project of worth, please consider donating:
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate?hosted_button_id=KX3R5RWAAZY7U)
+
+[![Donate](https://img.shields.io/badge/Donate-Tikkie_\(only_Netherlands\)-blueviolet.svg)](https://tikkie.me/pay/6n5tmg73reri1lrorlov) - If Tikkie does not work, please consider Paypal.
