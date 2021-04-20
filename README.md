@@ -68,6 +68,7 @@ Extra ideas:
 - LIRC not needed anymore: Infrared commands will be sent through a NE555 infrared emitter connected to the serial Tx pin and received through a Vishay TSDP34138 receiver connected to the Rx pin.
  
  
+## Donation:
 If you find this project of worth, please consider donating:
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg)](https://www.paypal.com/donate?hosted_button_id=KX3R5RWAAZY7U)
