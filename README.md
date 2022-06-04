@@ -42,7 +42,7 @@ Features/functionalities draft:
   - Weapons blocked? Can be programmed in this flow or also in player.
   - Automatic, semiautomatic.
   - Rate of firing (rate in automatic and cooldown in semiautomatic).
-- 2 Approaches for life points change: Either the amount of life (+ or -) is sent over IR, either only the code for the weapon or medkit.
+- 2 Approaches for life points change: ~~Either the amount of life (+ or -) is sent over IR~~, either only the code for the weapon or medkit.
   
 
 - General for everybody:

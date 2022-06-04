@@ -14,6 +14,22 @@
         "info": ""
     },
     {
+        "id": "6242d1c6bbc6efdc",
+        "type": "tab",
+        "label": "IR encoder",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1416495c2efb1dbc",
+        "type": "tab",
+        "label": "IR decoder",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
         "id": "53a5d437.78ad4c",
         "type": "subflow",
         "name": "Player",
@@ -264,42 +280,6 @@
         }
     },
     {
-        "id": "ca14d62f.3b07e8",
-        "type": "subflow",
-        "name": "IR encoder",
-        "info": "<p>Encodes the message and outputs a buffer object ready to transmit.</p>\r\n\r\n<h3>Inputs</h3>\r\n    <dl class=\"message-properties\">\r\n        <dt>payload.type\r\n            <span class=\"property-type\">string | number</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n        <dt>payload.counter\r\n            <span class=\"property-type\">string | number</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n        <dt>payload.playerID\r\n            <span class=\"property-type\">string | number</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n        <dt>payload.teamID\r\n            <span class=\"property-type\">string | number</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n        <dt>payload.weaponID\r\n            <span class=\"property-type\">string | number</span>\r\n        </dt>\r\n        <dd> the payload of the message to publish. </dd>\r\n    </dl>\r\n\r\n <h3>Outputs</h3>\r\n     <ol class=\"node-ports\">\r\n             <dl class=\"message-properties\">\r\n                 <dt>payload\r\n                 <span class=\"property-type\">buffer</span></dt>\r\n                 <dd>the standard output of the command.</dd>\r\n             </dl>\r\n     </ol>\r\n\r\n<h3>Details</h3>\r\n    <p><code>msg.payload</code> is used as the payload of the published message.\r\n    If it contains an Object it will be converted to a JSON string before being sent.\r\n    If it contains a binary Buffer the message will be published as-is.</p>\r\n    <p>The topic used can be configured in the node or, if left blank, can be set\r\n    by <code>msg.topic</code>.</p>\r\n    <p>Likewise the QoS and retain values can be configured in the node or, if left\r\n    blank, set by <code>msg.qos</code> and <code>msg.retain</code> respectively.</p>\r\n\r\n<h3>References</h3>\r\n    <ul>\r\n        <li><a>Twitter API docs</a> - full description of <code>msg.tweet</code> property</li>\r\n        <li><a>GitHub</a> - the nodes github repository</li>\r\n    </ul>",
-        "category": "",
-        "in": [
-            {
-                "x": 120,
-                "y": 120,
-                "wires": [
-                    {
-                        "id": "aa6467a9.d73d08"
-                    }
-                ]
-            }
-        ],
-        "out": [
-            {
-                "x": 800,
-                "y": 240,
-                "wires": [
-                    {
-                        "id": "96d8707e.300cd",
-                        "port": 0
-                    }
-                ]
-            }
-        ],
-        "env": [],
-        "color": "#FFCC66",
-        "outputLabels": [
-            "Buffer output"
-        ],
-        "icon": "font-awesome/fa-sign-out"
-    },
-    {
         "id": "1bde8982.2d5936",
         "type": "group",
         "z": "53a5d437.78ad4c",
@@ -315,9 +295,7 @@
             "34f589ca.b637b6"
         ],
         "x": 104,
-        "y": 739,
-        "w": 207,
-        "h": 142
+        "y": 739
     },
     {
         "id": "9b36f037.2f8ea",
@@ -332,9 +310,7 @@
             "33cb6943.3cca96"
         ],
         "x": 214,
-        "y": 359,
-        "w": 232,
-        "h": 142
+        "y": 359
     },
     {
         "id": "9ac894a5.db5de8",
@@ -348,9 +324,7 @@
             "2cb8c386.44bb3c"
         ],
         "x": 734,
-        "y": 1359,
-        "w": 192,
-        "h": 82
+        "y": 1359
     },
     {
         "id": "becd5011.cfb4e",
@@ -367,9 +341,7 @@
             "1a4453c1.0086dc"
         ],
         "x": 454,
-        "y": 59,
-        "w": 812,
-        "h": 142
+        "y": 59
     },
     {
         "id": "8cb47713.65eef8",
@@ -383,9 +355,7 @@
             "b35ef910.ea1048"
         ],
         "x": 734,
-        "y": 559,
-        "w": 192,
-        "h": 82
+        "y": 559
     },
     {
         "id": "9caa6bb0.4d98d8",
@@ -402,9 +372,7 @@
             "c310e86e.3f3858"
         ],
         "x": 734,
-        "y": 1059,
-        "w": 852,
-        "h": 122
+        "y": 1059
     },
     {
         "id": "9b3ce88c.3274d8",
@@ -419,9 +387,7 @@
             "a6a57321.24d5a"
         ],
         "x": 734,
-        "y": 1219,
-        "w": 312,
-        "h": 122
+        "y": 1219
     },
     {
         "id": "2c260a0f.525076",
@@ -446,9 +412,7 @@
             "d39f3dae.82b67"
         ],
         "x": 734,
-        "y": 759,
-        "w": 1392,
-        "h": 282
+        "y": 759
     },
     {
         "id": "630563e1.c9cacc",
@@ -462,9 +426,7 @@
             "23130005.8a14"
         ],
         "x": 734,
-        "y": 659,
-        "w": 212,
-        "h": 82
+        "y": 659
     },
     {
         "id": "e5b6be84.0731a",
@@ -641,6 +603,25 @@
         "width": "128",
         "height": "64",
         "address": "0x60"
+    },
+    {
+        "id": "5ddda163f71de565",
+        "type": "serial-port",
+        "serialport": "/dev/ttyS0",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "0x02",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "0x03",
+        "bin": "bin",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
     },
     {
         "id": "cd10c93e.b4e7d8",
@@ -842,56 +823,6 @@
         ]
     },
     {
-        "id": "f61f3c91.6c85d",
-        "type": "subflow:53a5d437.78ad4c",
-        "z": "2a6acf5c.4cd72",
-        "name": "",
-        "env": [
-            {
-                "name": "MAX_CAPACITY",
-                "value": "100",
-                "type": "num"
-            },
-            {
-                "name": "pistolDamage",
-                "value": "",
-                "type": "num"
-            },
-            {
-                "name": "maxPerMagazine",
-                "value": "",
-                "type": "num"
-            }
-        ],
-        "x": 570,
-        "y": 280,
-        "wires": [
-            [
-                "e974c45e.0f18f8"
-            ],
-            [
-                "30f99277.99122e"
-            ]
-        ]
-    },
-    {
-        "id": "e974c45e.0f18f8",
-        "type": "debug",
-        "z": "2a6acf5c.4cd72",
-        "name": "Fire",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 240,
-        "wires": []
-    },
-    {
         "id": "95dd4262.9e821",
         "type": "debug",
         "z": "53a5d437.78ad4c",
@@ -938,23 +869,6 @@
                 "95dd4262.9e821"
             ]
         ]
-    },
-    {
-        "id": "30f99277.99122e",
-        "type": "debug",
-        "z": "2a6acf5c.4cd72",
-        "name": "Status",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 280,
-        "wires": []
     },
     {
         "id": "38771853.3148c8",
@@ -1198,70 +1112,6 @@
         ]
     },
     {
-        "id": "3ff13699.ffba5a",
-        "type": "subflow:d53ff5ad.362298",
-        "z": "2a6acf5c.4cd72",
-        "name": "Pistol",
-        "env": [
-            {
-                "name": "WEAPON_ID",
-                "value": "1",
-                "type": "num"
-            },
-            {
-                "name": "MAX_PER_MAGAZINE",
-                "value": "20",
-                "type": "num"
-            },
-            {
-                "name": "WEAPON_TYPE",
-                "value": "auto",
-                "type": "str"
-            },
-            {
-                "name": "ROUNDS_PER_MINUTE",
-                "value": "20",
-                "type": "num"
-            }
-        ],
-        "x": 830,
-        "y": 540,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "bec55263.d5089",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Reinitialize",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.reinitialize",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payloadType": "str",
-        "x": 630,
-        "y": 640,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
-            ]
-        ]
-    },
-    {
         "id": "b58fed6c.d24d8",
         "type": "debug",
         "z": "d53ff5ad.362298",
@@ -1278,36 +1128,6 @@
         "x": 1170,
         "y": 100,
         "wires": []
-    },
-    {
-        "id": "ab9613a6.68133",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Get status",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.getStatus",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 640,
-        "y": 700,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
-            ]
-        ]
     },
     {
         "id": "b35ef910.ea1048",
@@ -1382,106 +1202,6 @@
         ]
     },
     {
-        "id": "47df7f81.c6d2e",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Add ammo",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.addAmmo",
-                "v": "",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "10",
-        "payloadType": "num",
-        "x": 640,
-        "y": 740,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
-            ]
-        ]
-    },
-    {
-        "id": "1bf792eb.66bfcd",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Remove ammo mag",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.removeAmmo",
-                "v": "",
-                "vt": "str"
-            },
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "1",
-        "payloadType": "num",
-        "x": 670,
-        "y": 780,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
-            ]
-        ]
-    },
-    {
-        "id": "86e09363.a19d5",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Reload",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.startReload",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 630,
-        "y": 820,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
-            ]
-        ]
-    },
-    {
         "id": "32eff6cf.82188a",
         "type": "delay",
         "z": "d53ff5ad.362298",
@@ -1497,6 +1217,7 @@
         "randomLast": "5",
         "randomUnits": "seconds",
         "drop": false,
+        "outputs": 1,
         "x": 1180,
         "y": 1140,
         "wires": [
@@ -1544,36 +1265,6 @@
             [
                 "32eff6cf.82188a",
                 "42f6a537.88238c"
-            ]
-        ]
-    },
-    {
-        "id": "29e4e430.22f3bc",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Abort Reload",
-        "props": [
-            {
-                "p": "weapon.ID",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "weapon.abortReload",
-                "v": "",
-                "vt": "str"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 650,
-        "y": 860,
-        "wires": [
-            [
-                "3ff13699.ffba5a"
             ]
         ]
     },
@@ -2012,57 +1703,6 @@
         ]
     },
     {
-        "id": "c50b49dd.77ac68",
-        "type": "rpi-gpio in",
-        "z": "2a6acf5c.4cd72",
-        "name": "",
-        "pin": "16",
-        "intype": "tri",
-        "debounce": "25",
-        "read": false,
-        "x": 190,
-        "y": 980,
-        "wires": [
-            [
-                "24087d36.5043d2",
-                "7eb68a66.738474"
-            ]
-        ]
-    },
-    {
-        "id": "24087d36.5043d2",
-        "type": "switch",
-        "z": "2a6acf5c.4cd72",
-        "name": "",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "eq",
-                "v": "0",
-                "vt": "num"
-            },
-            {
-                "t": "eq",
-                "v": "1",
-                "vt": "num"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 2,
-        "x": 410,
-        "y": 960,
-        "wires": [
-            [
-                "d3e0b86b.aae648"
-            ],
-            [
-                "3a6a9f41.5905f"
-            ]
-        ]
-    },
-    {
         "id": "4319aefb.54aa5",
         "type": "inject",
         "z": "d53ff5ad.362298",
@@ -2132,6 +1772,368 @@
         ]
     },
     {
+        "id": "fd3da69f.d7dac8",
+        "type": "exec",
+        "z": "d53ff5ad.362298",
+        "command": "aplay /home/pi/sounds/rifle.wav --test-nowait -d 1",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 2370,
+        "y": 900,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f61f3c91.6c85d",
+        "type": "subflow:53a5d437.78ad4c",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "env": [
+            {
+                "name": "MAX_CAPACITY",
+                "value": "100",
+                "type": "num"
+            },
+            {
+                "name": "pistolDamage",
+                "value": "",
+                "type": "num"
+            },
+            {
+                "name": "maxPerMagazine",
+                "value": "",
+                "type": "num"
+            }
+        ],
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "e974c45e.0f18f8"
+            ],
+            [
+                "30f99277.99122e"
+            ]
+        ]
+    },
+    {
+        "id": "e974c45e.0f18f8",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Fire",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "30f99277.99122e",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3ff13699.ffba5a",
+        "type": "subflow:d53ff5ad.362298",
+        "z": "2a6acf5c.4cd72",
+        "name": "Pistol",
+        "env": [
+            {
+                "name": "WEAPON_ID",
+                "value": "1",
+                "type": "num"
+            },
+            {
+                "name": "MAX_PER_MAGAZINE",
+                "value": "20",
+                "type": "num"
+            },
+            {
+                "name": "WEAPON_TYPE",
+                "value": "auto",
+                "type": "str"
+            },
+            {
+                "name": "ROUNDS_PER_MINUTE",
+                "value": "20",
+                "type": "num"
+            }
+        ],
+        "x": 830,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bec55263.d5089",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Reinitialize",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.reinitialize",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payloadType": "str",
+        "x": 630,
+        "y": 640,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "ab9613a6.68133",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Get status",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.getStatus",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 640,
+        "y": 700,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "47df7f81.c6d2e",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Add ammo",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.addAmmo",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "10",
+        "payloadType": "num",
+        "x": 640,
+        "y": 740,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "1bf792eb.66bfcd",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Remove ammo mag",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.removeAmmo",
+                "v": "",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "1",
+        "payloadType": "num",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "86e09363.a19d5",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Reload",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.startReload",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 630,
+        "y": 820,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "29e4e430.22f3bc",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Abort Reload",
+        "props": [
+            {
+                "p": "weapon.ID",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "weapon.abortReload",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 860,
+        "wires": [
+            [
+                "3ff13699.ffba5a"
+            ]
+        ]
+    },
+    {
+        "id": "c50b49dd.77ac68",
+        "type": "rpi-gpio in",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "pin": "23",
+        "intype": "tri",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 190,
+        "y": 980,
+        "wires": [
+            [
+                "24087d36.5043d2",
+                "7eb68a66.738474"
+            ]
+        ]
+    },
+    {
+        "id": "24087d36.5043d2",
+        "type": "switch",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 410,
+        "y": 960,
+        "wires": [
+            [
+                "d3e0b86b.aae648"
+            ],
+            [
+                "3a6a9f41.5905f"
+            ]
+        ]
+    },
+    {
         "id": "f1b0ea70.9f3d98",
         "type": "inject",
         "z": "2a6acf5c.4cd72",
@@ -2159,25 +2161,6 @@
             [
                 "3ff13699.ffba5a"
             ]
-        ]
-    },
-    {
-        "id": "fd3da69f.d7dac8",
-        "type": "exec",
-        "z": "d53ff5ad.362298",
-        "command": "aplay /home/pi/sounds/rifle.wav --test-nowait -d 1",
-        "addpay": false,
-        "append": "",
-        "useSpawn": "false",
-        "timer": "",
-        "oldrc": false,
-        "name": "",
-        "x": 2370,
-        "y": 900,
-        "wires": [
-            [],
-            [],
-            []
         ]
     },
     {
@@ -2293,6 +2276,358 @@
         "wires": [
             [],
             []
+        ]
+    },
+    {
+        "id": "9957b00e.48192",
+        "type": "rpi-gpio out",
+        "z": "2a6acf5c.4cd72",
+        "d": true,
+        "name": "Visible LED (Weapon flash)",
+        "set": "",
+        "level": "0",
+        "freq": "",
+        "out": "out",
+        "bcm": true,
+        "x": 1060,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6b3bb868.3a9268",
+        "type": "rpi-gpio in",
+        "z": "2a6acf5c.4cd72",
+        "d": true,
+        "name": "Trigger button",
+        "intype": "tri",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 140,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ad1fe2aa.2b22c",
+        "type": "rpi-gpio in",
+        "z": "2a6acf5c.4cd72",
+        "d": true,
+        "name": "Reload button",
+        "intype": "tri",
+        "debounce": "25",
+        "read": false,
+        "bcm": true,
+        "x": 130,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "54b1438cff95040e",
+        "type": "serial out",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "serial": "5ddda163f71de565",
+        "x": 1380,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "b0a7583dac69abde",
+        "type": "serial in",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "serial": "5ddda163f71de565",
+        "x": 1080,
+        "y": 960,
+        "wires": [
+            [
+                "a668054d9c4294b7"
+            ]
+        ]
+    },
+    {
+        "id": "1103e271f5ef3538",
+        "type": "switch",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1270,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fc91feaa2e041eee",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Inject bullet message",
+        "props": [
+            {
+                "p": "payload.sequence",
+                "v": "7",
+                "vt": "num"
+            },
+            {
+                "p": "payload.weaponID",
+                "v": "15",
+                "vt": "num"
+            },
+            {
+                "p": "payload.teamID",
+                "v": "3",
+                "vt": "num"
+            },
+            {
+                "p": "payload.playerID",
+                "v": "63",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 860,
+        "y": 1340,
+        "wires": [
+            [
+                "cbcaf0574e668d3a"
+            ]
+        ]
+    },
+    {
+        "id": "c4639c2c79dcdb43",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "hellolito",
+        "payloadType": "str",
+        "x": 810,
+        "y": 1380,
+        "wires": [
+            [
+                "cbcaf0574e668d3a"
+            ]
+        ]
+    },
+    {
+        "id": "a668054d9c4294b7",
+        "type": "link out",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "9492a28a8c242486"
+        ],
+        "x": 1235,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "e61ade3e92612f15",
+        "type": "link in",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "links": [
+            "31866f975f433138"
+        ],
+        "x": 1165,
+        "y": 760,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
+        ]
+    },
+    {
+        "id": "cbcaf0574e668d3a",
+        "type": "link out",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "mode": "link",
+        "links": [
+            "3ce98011f5214c3a"
+        ],
+        "x": 1155,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "6638070f01588d14",
+        "type": "comment",
+        "z": "2a6acf5c.4cd72",
+        "name": "IR interface spec",
+        "info": "# Types of messages\n\nWeapon\nAmmo refill\nRespawn\nLife\n\n| Byte  | 1 |   |   |   |   |   |   |   | 2 |   |   |   |   |   |   |   | 3 |   |   |   |   |   |   |   |\n|-------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| Bit   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n| Value | 1 | s | s | s | w | w | w | w | t | t | p | p | p | p | p | p | c | c | c | c | c | c | c | c |\n\nWhere:\n - s is a sequence number (value from 0 to 7)\n - w is the weapon weapon ID (value from 0 to 15)\n - t is the team ID (value from 0 to 3)\n - p is the player ID (value from 0 to 63)\n - c is the checksum\n\n\nReferee functions\n\nLoading parameters\n\n\n\nMandatory arguments\nif (\"type\" in msg.payload\n    && \"counter\" in msg.payload \n    && \"playerID\" in msg.payload\n    && \"teamID\" in msg.payload\n    && \"weaponID\" in msg.payload){",
+        "x": 1480,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "6cd0bee1a484f8cf",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "STX and ETX well formed",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[2,68,3]",
+        "payloadType": "bin",
+        "x": 870,
+        "y": 1240,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
+        ]
+    },
+    {
+        "id": "4a48886baa8af1e3",
+        "type": "debug",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1790,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "bb988ebac5712d53",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Only A",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[65]",
+        "payloadType": "bin",
+        "x": 1030,
+        "y": 840,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
+        ]
+    },
+    {
+        "id": "c37ef5b80db104d6",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Only STX",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[2]",
+        "payloadType": "bin",
+        "x": 1040,
+        "y": 880,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
+        ]
+    },
+    {
+        "id": "a1ee9749a6b16f52",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "Only ETX",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "[3]",
+        "payloadType": "bin",
+        "x": 1040,
+        "y": 920,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
+        ]
+    },
+    {
+        "id": "535a8abd3f2dd173",
+        "type": "inject",
+        "z": "2a6acf5c.4cd72",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"item\":\"lala\",\"item-2\":\"lali\"}",
+        "payloadType": "json",
+        "x": 970,
+        "y": 1080,
+        "wires": [
+            [
+                "54b1438cff95040e"
+            ]
         ]
     },
     {
@@ -4234,212 +4569,368 @@
         ]
     },
     {
-        "id": "9957b00e.48192",
-        "type": "rpi-gpio out",
-        "z": "2a6acf5c.4cd72",
-        "d": true,
-        "name": "Visible LED (Weapon flash)",
-        "pin": "",
-        "set": "",
-        "level": "0",
-        "freq": "",
-        "out": "out",
-        "x": 1060,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "6b3bb868.3a9268",
-        "type": "rpi-gpio in",
-        "z": "2a6acf5c.4cd72",
-        "d": true,
-        "name": "Trigger button",
-        "pin": "",
-        "intype": "tri",
-        "debounce": "25",
-        "read": false,
-        "x": 140,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "ad1fe2aa.2b22c",
-        "type": "rpi-gpio in",
-        "z": "2a6acf5c.4cd72",
-        "d": true,
-        "name": "Reload button",
-        "pin": "",
-        "intype": "tri",
-        "debounce": "25",
-        "read": false,
-        "x": 130,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "96d8707e.300cd",
+        "id": "3c3569240e9a46c4",
         "type": "function",
-        "z": "ca14d62f.3b07e8",
-        "name": "Create message and add checksum",
-        "func": "// Code example based on example from https://discourse.nodered.org/t/calculate-a-checksum/20142/7\n\nvar D = [\n    ((msg.payload.type << 6) | msg.payload.counter), //Add them together to form a single byte\n    msg.payload.playerID,\n    ((msg.payload.teamID << 5) | msg.payload.weaponID), //Add them together to form a single byte\n    0x00 // Checksum will go here\n]\n\nvar sum = D[0]+D[1]+D[2];\n\nD[3] = (-sum>>>0)&0xff;\n\nmsg.payload = Buffer.from(D);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "x": 510,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "aa6467a9.d73d08",
-        "type": "function",
-        "z": "ca14d62f.3b07e8",
-        "name": "Check that input has all the arguments",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Check that input has all the arguments (correct this)",
         "func": "if (\"type\" in msg.payload\n    && \"counter\" in msg.payload \n    && \"playerID\" in msg.payload\n    && \"teamID\" in msg.payload\n    && \"weaponID\" in msg.payload){\n        return msg;\n    } \n    else \n    {\n        node.error(\"Missing inputs\");\n        return;\n    }",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 370,
-        "y": 120,
+        "libs": [],
+        "x": 670,
+        "y": 240,
         "wires": [
             [
-                "2849f803.cf3ed8"
+                "fe08b0c28bdd11f8"
             ]
         ]
     },
     {
-        "id": "83564f80.51376",
-        "type": "inject",
-        "z": "ca14d62f.3b07e8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload.type",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "payload.counter",
-                "v": "45",
-                "vt": "num"
-            },
-            {
-                "p": "payload.playerID",
-                "v": "50",
-                "vt": "num"
-            },
-            {
-                "p": "payload.weaponID",
-                "v": "20",
-                "vt": "num"
-            },
-            {
-                "p": "payload.teamID",
-                "v": "6",
-                "vt": "num"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 110,
-        "y": 200,
-        "wires": [
-            [
-                "aa6467a9.d73d08"
-            ]
-        ]
-    },
-    {
-        "id": "2849f803.cf3ed8",
+        "id": "fe08b0c28bdd11f8",
         "type": "function",
-        "z": "ca14d62f.3b07e8",
-        "name": "Convert to numbers if strings",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Convert to numbers if strings (correct this)",
         "func": "if (typeof msg.payload.type === \"string\") msg.payload.type = parseInt(msg.payload.type, 10);\nif (typeof msg.payload.counter === \"string\") msg.payload.counter = parseInt(msg.payload.counter, 10);   \nif (typeof msg.payload.playerID === \"string\") msg.payload.playerID = parseInt(msg.payload.playerID, 10);    \nif (typeof msg.payload.teamID === \"string\") msg.payload.teamID = parseInt(msg.payload.teamID, 10);    \nif (typeof msg.payload.weaponID === \"string\") msg.payload.weaponID = parseInt(msg.payload.weaponID, 10);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
-        "x": 420,
-        "y": 180,
+        "libs": [],
+        "x": 640,
+        "y": 280,
         "wires": [
-            [
-                "96d8707e.300cd"
-            ]
+            []
         ]
     },
     {
-        "id": "1663e17b.e1a31f",
-        "type": "inject",
-        "z": "ca14d62f.3b07e8",
-        "name": "",
-        "props": [
-            {
-                "p": "payload.type",
-                "v": "1",
-                "vt": "num"
-            },
-            {
-                "p": "payload.counter",
-                "v": "45",
-                "vt": "num"
-            },
-            {
-                "p": "payload.playerID",
-                "v": "50",
-                "vt": "str"
-            },
-            {
-                "p": "payload.weaponID",
-                "v": "20",
-                "vt": "num"
-            },
-            {
-                "p": "payload.teamID",
-                "v": "6",
-                "vt": "num"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 130,
-        "y": 240,
-        "wires": [
-            [
-                "aa6467a9.d73d08"
-            ]
-        ]
-    },
-    {
-        "id": "7da1357f.4cdb7c",
+        "id": "c094506dfea2f184",
         "type": "comment",
-        "z": "ca14d62f.3b07e8",
-        "name": "Work on description",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Sequence counter",
         "info": "",
-        "x": 320,
-        "y": 60,
+        "x": 670,
+        "y": 180,
         "wires": []
     },
     {
-        "id": "4f683a35.00d654",
+        "id": "dadc2da1e3fc95df",
+        "type": "function",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Create bullet message and add checksum",
+        "func": "// Code example based on example from https://discourse.nodered.org/t/calculate-a-checksum/20142/7\n\nvar D = [\n    ((1 << 7) | (msg.payload.sequence << 4) | msg.payload.weaponID), //Add them together to form a single byte (the 1 makes sure we are out of ASCII table)\n    ((msg.payload.teamID << 6) | msg.payload.playerID), //Add them together to form a single byte\n    0x00 // Checksum will go here\n]\n\nvar sum = D[0]+D[1];\n\nD[2] = (-sum>>>0)&0xff;\n\nmsg.payload = Buffer.from(D);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 540,
+        "wires": [
+            [
+                "31866f975f433138",
+                "48518091dd176088"
+            ]
+        ]
+    },
+    {
+        "id": "3ce98011f5214c3a",
+        "type": "link in",
+        "z": "6242d1c6bbc6efdc",
+        "name": "IR encoder input",
+        "links": [
+            "cbcaf0574e668d3a"
+        ],
+        "x": 205,
+        "y": 140,
+        "wires": [
+            [
+                "dadc2da1e3fc95df",
+                "2c14419d38fcb17f"
+            ]
+        ]
+    },
+    {
+        "id": "31866f975f433138",
+        "type": "link out",
+        "z": "6242d1c6bbc6efdc",
+        "name": "IR encoder output",
+        "mode": "link",
+        "links": [
+            "e61ade3e92612f15"
+        ],
+        "x": 1145,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "2c14419d38fcb17f",
+        "type": "debug",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Entering IR encoder flow",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 370,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "48518091dd176088",
+        "type": "debug",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Exiting IR encoder flow",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1240,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "babfef90860489cd",
+        "type": "change",
+        "z": "6242d1c6bbc6efdc",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "95e66828f324156b",
+        "type": "function",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Add checksum and STX-ETX",
+        "func": "\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d7d9475384717e5c",
         "type": "comment",
-        "z": "ca14d62f.3b07e8",
-        "name": "Correct counter",
+        "z": "6242d1c6bbc6efdc",
+        "name": "They have to be numbers here",
         "info": "",
-        "x": 500,
-        "y": 60,
+        "x": 330,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "7a04f37c9b9caef5",
+        "type": "comment",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Build checksum for longer messages",
+        "info": "",
+        "x": 720,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "9492a28a8c242486",
+        "type": "link in",
+        "z": "1416495c2efb1dbc",
+        "name": "IR decoder input",
+        "links": [
+            "a668054d9c4294b7"
+        ],
+        "x": 295,
+        "y": 180,
+        "wires": [
+            [
+                "8c87ee745c2b4697",
+                "8f44fb71bdd2ed17"
+            ]
+        ]
+    },
+    {
+        "id": "5d6a55d7eecabac9",
+        "type": "function",
+        "z": "1416495c2efb1dbc",
+        "name": "Decode bullet message",
+        "func": "//var sequence = ((msg.payload[0] >> 4) & 0b00000111); //shift sequence bits 4 spaces to the right and make 0 everything that is not sequence values\n//var weaponID = (msg.payload[0] & 0b00001111);\n//var teamID = ((msg.payload[1] >> 6) & 0b00000011);\n//var playerID = (msg.payload[1] & 0b00111111);\n\nmsg.payload = {\n    sequence: ((msg.payload[0] >> 4) & 0b00000111), //shift sequence bits 4 spaces to the right and make 0 everything that is not sequence values\n    weaponID: (msg.payload[0] & 0b00001111),\n    teamID: ((msg.payload[1] >> 6) & 0b00000011),\n    playerID: (msg.payload[1] & 0b00111111)\n};\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 200,
+        "wires": [
+            [
+                "8d870dc7f02146c1",
+                "01953a4535cefcb5",
+                "72f97d792d1a7969"
+            ]
+        ]
+    },
+    {
+        "id": "01953a4535cefcb5",
+        "type": "link out",
+        "z": "1416495c2efb1dbc",
+        "name": "IR decoder output",
+        "mode": "link",
+        "links": [],
+        "x": 1355,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "45a164476e3870bb",
+        "type": "switch",
+        "z": "1416495c2efb1dbc",
+        "name": "Bullet or long parameter message",
+        "property": "payload[0]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "gte",
+                "v": "128",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "x": 820,
+        "y": 420,
+        "wires": [
+            [
+                "5d6a55d7eecabac9"
+            ],
+            [
+                "415fbf12ec998314",
+                "01953a4535cefcb5",
+                "72f97d792d1a7969"
+            ]
+        ],
+        "outputLabels": [
+            "Bullet message",
+            "Long ASCII message"
+        ]
+    },
+    {
+        "id": "8d870dc7f02146c1",
+        "type": "debug",
+        "z": "1416495c2efb1dbc",
+        "name": "Bullet",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1130,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "415fbf12ec998314",
+        "type": "debug",
+        "z": "1416495c2efb1dbc",
+        "name": "Long",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1030,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "8c87ee745c2b4697",
+        "type": "function",
+        "z": "1416495c2efb1dbc",
+        "name": "Extract buffer between last STX and ETX",
+        "func": "//Extract betwen last STX (0x02) and ETX at end of buffer\n\nmsg.payload = msg.payload.subarray(msg.payload.lastIndexOf(0x02) + 1, msg.payload.length - 1)\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "45a164476e3870bb"
+            ]
+        ]
+    },
+    {
+        "id": "8f44fb71bdd2ed17",
+        "type": "debug",
+        "z": "1416495c2efb1dbc",
+        "name": "Entering IR decoder flow",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 450,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "72f97d792d1a7969",
+        "type": "debug",
+        "z": "1416495c2efb1dbc",
+        "name": "Exiting IR decoder flow",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1440,
+        "y": 380,
         "wires": []
     }
 ]
