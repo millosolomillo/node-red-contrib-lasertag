@@ -10,7 +10,7 @@
         "id": "5b3f11d2.6b8e5",
         "type": "tab",
         "label": "Display",
-        "disabled": false,
+        "disabled": true,
         "info": ""
     },
     {
@@ -18,7 +18,7 @@
         "type": "tab",
         "label": "IR encoder",
         "disabled": false,
-        "info": "",
+        "info": "<p>Prepares messages to be sent over serial IR.</p>\r\n\r\n<h3>Inputs</h3>\r\n    <dl class=\"message-properties\">\r\n        <dt>payload\r\n            <span class=\"property-type\">object | string | buffer</span>\r\n        </dt>\r\n        <dd> the payload of the message to be converted.</dd>\r\n    </dl>\r\n\r\n <h3>Outputs</h3>\r\n    <dl class=\"message-properties\">\r\n        <dt>payload \r\n            <span class=\"property-type\">buffer</span>\r\n        </dt>\r\n        <dd>Output to be connected to serial.</dd>\r\n    </dl>\r\n\r\n<h3>Details</h3>\r\n    <p>If <code>msg.payload</code> contains an Object with keys <code>playerID</code>, \r\n    <code>teamID</code> and <code>weaponID</code> passed as either numbers or strings, \r\n    it will be converted to a bullet message before being prepared and sent.</p>\r\n    <p>If <code>msg.payload</code> contains anything else it won't be modified \r\n    before being prepared and sent.</p>",
         "env": []
     },
     {
@@ -266,6 +266,7 @@
                 }
             }
         ],
+        "meta": {},
         "color": "#E9967A",
         "icon": "font-awesome/fa-crosshairs",
         "status": {
@@ -324,7 +325,9 @@
             "2cb8c386.44bb3c"
         ],
         "x": 734,
-        "y": 1359
+        "y": 1359,
+        "w": 192,
+        "h": 82
     },
     {
         "id": "becd5011.cfb4e",
@@ -341,7 +344,9 @@
             "1a4453c1.0086dc"
         ],
         "x": 454,
-        "y": 59
+        "y": 59,
+        "w": 812,
+        "h": 142
     },
     {
         "id": "8cb47713.65eef8",
@@ -355,7 +360,9 @@
             "b35ef910.ea1048"
         ],
         "x": 734,
-        "y": 559
+        "y": 559,
+        "w": 192,
+        "h": 82
     },
     {
         "id": "9caa6bb0.4d98d8",
@@ -372,7 +379,9 @@
             "c310e86e.3f3858"
         ],
         "x": 734,
-        "y": 1059
+        "y": 1059,
+        "w": 852,
+        "h": 122
     },
     {
         "id": "9b3ce88c.3274d8",
@@ -387,7 +396,9 @@
             "a6a57321.24d5a"
         ],
         "x": 734,
-        "y": 1219
+        "y": 1219,
+        "w": 312,
+        "h": 122
     },
     {
         "id": "2c260a0f.525076",
@@ -412,7 +423,9 @@
             "d39f3dae.82b67"
         ],
         "x": 734,
-        "y": 759
+        "y": 759,
+        "w": 1392,
+        "h": 282
     },
     {
         "id": "630563e1.c9cacc",
@@ -426,7 +439,9 @@
             "23130005.8a14"
         ],
         "x": 734,
-        "y": 659
+        "y": 659,
+        "w": 212,
+        "h": 82
     },
     {
         "id": "e5b6be84.0731a",
@@ -597,8 +612,45 @@
         "h": 262
     },
     {
+        "id": "7a8e5c455e366f15",
+        "type": "group",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Bullet type message",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "fe08b0c28bdd11f8",
+            "d7d9475384717e5c",
+            "c094506dfea2f184",
+            "9f8d57f33c315f8a"
+        ],
+        "x": 194,
+        "y": 279,
+        "w": 892,
+        "h": 122
+    },
+    {
+        "id": "ea425e32c97994ae",
+        "type": "group",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Other type message",
+        "style": {
+            "label": true
+        },
+        "nodes": [
+            "c8f001ee88cadd9a",
+            "88b767e2aa7a3f92"
+        ],
+        "x": 194,
+        "y": 419,
+        "w": 432,
+        "h": 142
+    },
+    {
         "id": "bc57cb34.90ef58",
         "type": "oled-config",
+        "d": true,
         "name": "",
         "width": "128",
         "height": "64",
@@ -2329,9 +2381,10 @@
         "id": "54b1438cff95040e",
         "type": "serial out",
         "z": "2a6acf5c.4cd72",
+        "d": true,
         "name": "",
         "serial": "5ddda163f71de565",
-        "x": 1380,
+        "x": 1400,
         "y": 760,
         "wires": []
     },
@@ -2339,9 +2392,10 @@
         "id": "b0a7583dac69abde",
         "type": "serial in",
         "z": "2a6acf5c.4cd72",
+        "d": true,
         "name": "",
         "serial": "5ddda163f71de565",
-        "x": 1080,
+        "x": 1180,
         "y": 960,
         "wires": [
             [
@@ -2373,71 +2427,6 @@
         ]
     },
     {
-        "id": "fc91feaa2e041eee",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Inject bullet message",
-        "props": [
-            {
-                "p": "payload.sequence",
-                "v": "7",
-                "vt": "num"
-            },
-            {
-                "p": "payload.weaponID",
-                "v": "15",
-                "vt": "num"
-            },
-            {
-                "p": "payload.teamID",
-                "v": "3",
-                "vt": "num"
-            },
-            {
-                "p": "payload.playerID",
-                "v": "63",
-                "vt": "num"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "x": 860,
-        "y": 1340,
-        "wires": [
-            [
-                "cbcaf0574e668d3a"
-            ]
-        ]
-    },
-    {
-        "id": "c4639c2c79dcdb43",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "hellolito",
-        "payloadType": "str",
-        "x": 810,
-        "y": 1380,
-        "wires": [
-            [
-                "cbcaf0574e668d3a"
-            ]
-        ]
-    },
-    {
         "id": "a668054d9c4294b7",
         "type": "link out",
         "z": "2a6acf5c.4cd72",
@@ -2446,7 +2435,7 @@
         "links": [
             "9492a28a8c242486"
         ],
-        "x": 1235,
+        "x": 1335,
         "y": 960,
         "wires": []
     },
@@ -2475,8 +2464,8 @@
         "links": [
             "3ce98011f5214c3a"
         ],
-        "x": 1155,
-        "y": 1340,
+        "x": 1245,
+        "y": 1060,
         "wires": []
     },
     {
@@ -2484,35 +2473,10 @@
         "type": "comment",
         "z": "2a6acf5c.4cd72",
         "name": "IR interface spec",
-        "info": "# Types of messages\n\nWeapon\nAmmo refill\nRespawn\nLife\n\n| Byte  | 1 |   |   |   |   |   |   |   | 2 |   |   |   |   |   |   |   | 3 |   |   |   |   |   |   |   |\n|-------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| Bit   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n| Value | 1 | s | s | s | w | w | w | w | t | t | p | p | p | p | p | p | c | c | c | c | c | c | c | c |\n\nWhere:\n - s is a sequence number (value from 0 to 7)\n - w is the weapon weapon ID (value from 0 to 15)\n - t is the team ID (value from 0 to 3)\n - p is the player ID (value from 0 to 63)\n - c is the checksum\n\n\nReferee functions\n\nLoading parameters\n\n\n\nMandatory arguments\nif (\"type\" in msg.payload\n    && \"counter\" in msg.payload \n    && \"playerID\" in msg.payload\n    && \"teamID\" in msg.payload\n    && \"weaponID\" in msg.payload){",
-        "x": 1480,
+        "info": "# Types of messages\n\n## Bullet message:\n\nThese messages have a fixed length of 5 bytes, consisting of:\n1. STX ASCII character (1 byte).\n2. 3 bytes for data + checksum (see table below).\n3. ETX ASCII character (1 byte).\n\n| Byte  | 1 |   |   |   |   |   |   |   | 2 |   |   |   |   |   |   |   | 3 |   |   |   |   |   |   |   |\n|-------|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|\n| Bit   | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |\n| Value | 1 | s | s | s | w | w | w | w | t | t | p | p | p | p | p | p | c | c | c | c | c | c | c | c |\n\nWhere:\n - s is a sequence number (value from 0 to 7)\n - w is the weapon weapon ID (value from 0 to 15)\n - t is the team ID (value from 0 to 3)\n - p is the player ID (value from 0 to 63)\n - c is the checksum\n\nThe goal of the bullet message is to be as short as possible.\n\n## Other messages:\n\nThese messages have a variable length and can be used for any other function such as:\n - Loading of parameters.\n - Ammo refill.\n - Respawn.\n - Referee commands.\n",
+        "x": 1420,
         "y": 880,
         "wires": []
-    },
-    {
-        "id": "6cd0bee1a484f8cf",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "STX and ETX well formed",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[2,68,3]",
-        "payloadType": "bin",
-        "x": 870,
-        "y": 1240,
-        "wires": [
-            [
-                "54b1438cff95040e"
-            ]
-        ]
     },
     {
         "id": "4a48886baa8af1e3",
@@ -2523,112 +2487,13 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
         "x": 1790,
         "y": 980,
         "wires": []
-    },
-    {
-        "id": "bb988ebac5712d53",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Only A",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[65]",
-        "payloadType": "bin",
-        "x": 1030,
-        "y": 840,
-        "wires": [
-            [
-                "54b1438cff95040e"
-            ]
-        ]
-    },
-    {
-        "id": "c37ef5b80db104d6",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Only STX",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[2]",
-        "payloadType": "bin",
-        "x": 1040,
-        "y": 880,
-        "wires": [
-            [
-                "54b1438cff95040e"
-            ]
-        ]
-    },
-    {
-        "id": "a1ee9749a6b16f52",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "Only ETX",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "[3]",
-        "payloadType": "bin",
-        "x": 1040,
-        "y": 920,
-        "wires": [
-            [
-                "54b1438cff95040e"
-            ]
-        ]
-    },
-    {
-        "id": "535a8abd3f2dd173",
-        "type": "inject",
-        "z": "2a6acf5c.4cd72",
-        "name": "",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
-        "topic": "",
-        "payload": "{\"item\":\"lala\",\"item-2\":\"lali\"}",
-        "payloadType": "json",
-        "x": 970,
-        "y": 1080,
-        "wires": [
-            [
-                "54b1438cff95040e"
-            ]
-        ]
     },
     {
         "id": "b46381d4.d8d9a",
@@ -4572,67 +4437,58 @@
         "id": "3c3569240e9a46c4",
         "type": "function",
         "z": "6242d1c6bbc6efdc",
-        "name": "Check that input has all the arguments (correct this)",
-        "func": "if (\"type\" in msg.payload\n    && \"counter\" in msg.payload \n    && \"playerID\" in msg.payload\n    && \"teamID\" in msg.payload\n    && \"weaponID\" in msg.payload){\n        return msg;\n    } \n    else \n    {\n        node.error(\"Missing inputs\");\n        return;\n    }",
-        "outputs": 1,
+        "name": "Bullet message or other type?",
+        "func": "if (typeof msg.payload === 'object'\n    && msg.payload !== null\n    && \"playerID\" in msg.payload\n    && \"teamID\" in msg.payload\n    && \"weaponID\" in msg.payload){\n        return [msg, null];\n    } \n    else \n    {\n        return [null, msg];\n    }",
+        "outputs": 2,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 670,
-        "y": 240,
+        "x": 430,
+        "y": 140,
         "wires": [
             [
                 "fe08b0c28bdd11f8"
+            ],
+            [
+                "88b767e2aa7a3f92"
             ]
+        ],
+        "outputLabels": [
+            "Bullet message",
+            "Other type of message"
         ]
     },
     {
         "id": "fe08b0c28bdd11f8",
         "type": "function",
         "z": "6242d1c6bbc6efdc",
-        "name": "Convert to numbers if strings (correct this)",
-        "func": "if (typeof msg.payload.type === \"string\") msg.payload.type = parseInt(msg.payload.type, 10);\nif (typeof msg.payload.counter === \"string\") msg.payload.counter = parseInt(msg.payload.counter, 10);   \nif (typeof msg.payload.playerID === \"string\") msg.payload.playerID = parseInt(msg.payload.playerID, 10);    \nif (typeof msg.payload.teamID === \"string\") msg.payload.teamID = parseInt(msg.payload.teamID, 10);    \nif (typeof msg.payload.weaponID === \"string\") msg.payload.weaponID = parseInt(msg.payload.weaponID, 10);\n\nreturn msg;",
-        "outputs": 1,
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 640,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "c094506dfea2f184",
-        "type": "comment",
-        "z": "6242d1c6bbc6efdc",
-        "name": "Sequence counter",
-        "info": "",
-        "x": 670,
-        "y": 180,
-        "wires": []
-    },
-    {
-        "id": "dadc2da1e3fc95df",
-        "type": "function",
-        "z": "6242d1c6bbc6efdc",
-        "name": "Create bullet message and add checksum",
-        "func": "// Code example based on example from https://discourse.nodered.org/t/calculate-a-checksum/20142/7\n\nvar D = [\n    ((1 << 7) | (msg.payload.sequence << 4) | msg.payload.weaponID), //Add them together to form a single byte (the 1 makes sure we are out of ASCII table)\n    ((msg.payload.teamID << 6) | msg.payload.playerID), //Add them together to form a single byte\n    0x00 // Checksum will go here\n]\n\nvar sum = D[0]+D[1];\n\nD[2] = (-sum>>>0)&0xff;\n\nmsg.payload = Buffer.from(D);\n\nreturn msg;",
+        "g": "7a8e5c455e366f15",
+        "name": "Convert to numbers if strings",
+        "func": "if (typeof msg.payload.playerID === \"string\") msg.payload.playerID = parseInt(msg.payload.playerID, 10);    \nif (typeof msg.payload.teamID === \"string\") msg.payload.teamID = parseInt(msg.payload.teamID, 10);    \nif (typeof msg.payload.weaponID === \"string\") msg.payload.weaponID = parseInt(msg.payload.weaponID, 10);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
         "x": 540,
-        "y": 540,
+        "y": 360,
         "wires": [
             [
-                "31866f975f433138",
-                "48518091dd176088"
+                "9f8d57f33c315f8a"
             ]
         ]
+    },
+    {
+        "id": "c094506dfea2f184",
+        "type": "comment",
+        "z": "6242d1c6bbc6efdc",
+        "g": "7a8e5c455e366f15",
+        "name": "Add Sequence counter",
+        "info": "",
+        "x": 720,
+        "y": 320,
+        "wires": []
     },
     {
         "id": "3ce98011f5214c3a",
@@ -4646,8 +4502,8 @@
         "y": 140,
         "wires": [
             [
-                "dadc2da1e3fc95df",
-                "2c14419d38fcb17f"
+                "2c14419d38fcb17f",
+                "3c3569240e9a46c4"
             ]
         ]
     },
@@ -4660,7 +4516,7 @@
         "links": [
             "e61ade3e92612f15"
         ],
-        "x": 1145,
+        "x": 1365,
         "y": 160,
         "wires": []
     },
@@ -4677,8 +4533,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 370,
-        "y": 120,
+        "x": 330,
+        "y": 60,
         "wires": []
     },
     {
@@ -4694,70 +4550,155 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1240,
+        "x": 1500,
         "y": 200,
         "wires": []
-    },
-    {
-        "id": "babfef90860489cd",
-        "type": "change",
-        "z": "6242d1c6bbc6efdc",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 800,
-        "y": 760,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "95e66828f324156b",
         "type": "function",
         "z": "6242d1c6bbc6efdc",
-        "name": "Add checksum and STX-ETX",
-        "func": "\nreturn msg;",
+        "name": "Add STX-ETX",
+        "func": "msg.payload = Buffer.concat([Buffer.from([0x02]), msg.payload, Buffer.from([0x03])]);\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1060,
-        "y": 640,
+        "x": 1480,
+        "y": 500,
         "wires": [
-            []
+            [
+                "31866f975f433138",
+                "48518091dd176088"
+            ]
         ]
     },
     {
         "id": "d7d9475384717e5c",
         "type": "comment",
         "z": "6242d1c6bbc6efdc",
+        "g": "7a8e5c455e366f15",
         "name": "They have to be numbers here",
         "info": "",
-        "x": 330,
-        "y": 500,
+        "x": 350,
+        "y": 320,
         "wires": []
     },
     {
-        "id": "7a04f37c9b9caef5",
+        "id": "5f59817b84092e25",
         "type": "comment",
         "z": "6242d1c6bbc6efdc",
-        "name": "Build checksum for longer messages",
+        "name": "Check sanity of entering messages",
         "info": "",
-        "x": 720,
-        "y": 140,
+        "x": 300,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "9f8d57f33c315f8a",
+        "type": "function",
+        "z": "6242d1c6bbc6efdc",
+        "g": "7a8e5c455e366f15",
+        "name": "Create bullet message and return array",
+        "func": "// Code example vaguely based on example from https://discourse.nodered.org/t/calculate-a-checksum/20142/7\n\nmsg.payload = [\n    ((1 << 7) | (msg.payload.sequence << 4) | msg.payload.weaponID), //Add them together to form a single byte (the 1 makes sure we are out of ASCII table)\n    ((msg.payload.teamID << 6) | msg.payload.playerID), //Add them together to form a single byte\n]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 360,
+        "wires": [
+            [
+                "d7a9d4becf1c6a18",
+                "b49253cb7b840ed9"
+            ]
+        ]
+    },
+    {
+        "id": "d7a9d4becf1c6a18",
+        "type": "function",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Convert to buffer and add checksum",
+        "func": "var D = Buffer.from(msg.payload)\nvar sum = 0;\n\nfor (let i = 0; i < D.length; i++) {\n    sum += D[i];\n}\n\nsum = (-sum >>> 0) & 0xff;\nsum = Buffer.from ([sum]);\nmsg.payload = Buffer.concat([D, sum]);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1350,
+        "y": 440,
+        "wires": [
+            [
+                "95e66828f324156b"
+            ]
+        ]
+    },
+    {
+        "id": "c8f001ee88cadd9a",
+        "type": "json",
+        "z": "6242d1c6bbc6efdc",
+        "g": "ea425e32c97994ae",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 550,
+        "y": 460,
+        "wires": [
+            [
+                "d7a9d4becf1c6a18"
+            ]
+        ]
+    },
+    {
+        "id": "88b767e2aa7a3f92",
+        "type": "switch",
+        "z": "6242d1c6bbc6efdc",
+        "g": "ea425e32c97994ae",
+        "name": "If object send to stringify",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "istype",
+                "v": "object",
+                "vt": "object"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 330,
+        "y": 520,
+        "wires": [
+            [
+                "c8f001ee88cadd9a"
+            ],
+            [
+                "d7a9d4becf1c6a18"
+            ]
+        ]
+    },
+    {
+        "id": "b49253cb7b840ed9",
+        "type": "debug",
+        "z": "6242d1c6bbc6efdc",
+        "name": "Bullet message before checksum",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 360,
         "wires": []
     },
     {
